@@ -5,7 +5,7 @@ const outputDirectory = 'dist';
 module.exports = {
   entry: ['babel-polyfill', './src/hopLiteJS/index.ts'],
   output: {
-    path: path.join(__dirname, outputDirectory),
+    path: path.resolve(__dirname, outputDirectory),
     filename: 'bundle.js'
   },
   module: {
