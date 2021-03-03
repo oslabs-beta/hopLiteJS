@@ -1,7 +1,7 @@
 {
   "name": "hoplitejs",
   "version": "1.0.0",
-  "description": "Fullstack React/Express with Typescript Enabled",
+  "description": "Fullstack Express with Typescript Enabled",
   "main": "src/hopLiteJS/index.ts",
   "scripts": {
     "build": "webpack --mode production",
