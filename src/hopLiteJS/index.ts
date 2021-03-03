@@ -1,5 +1,6 @@
 class hopLiteJSBlueprint {
   test(str) {
+    const num: number = "hello";
     console.log(str)
   }
 }
