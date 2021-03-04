@@ -2,10 +2,10 @@
   "name": "hoplitejs",
   "version": "1.0.0",
   "description": "Fullstack Express with Typescript Enabled",
-  "main": "src/hopLiteJS/index.ts",
+  "main": "lib/index.js",
   "scripts": {
-    "build": "webpack --mode production",
-    "start": "npm run build && nodemon src/server/index.ts",
+    "build": "tsc",
+    "dev": "nodemon --exec \"npm run build\" -e ts -w src",
     "check": "nodemon src/hopLiteJS/index.ts"
   },
   "author": "MXJRD",
