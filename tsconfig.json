@@ -1,14 +1,16 @@
 {
+  "include": ["src"],
   "compilerOptions": {
-    "outDir": "./dist/",
+    "outDir": "./lib",
     "module": "es6",
     "target": "es5",
     "noImplicitThis": true,
     "noImplicitAny": true,
-        "typeRoots": [
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "typeRoots": [
           "./node_modules/@types"
     ],
-    "jsx": "react",
-    "allowJs": true
+    "allowJs": true,
   }
 }

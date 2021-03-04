@@ -1,7 +1,7 @@
 class hopLiteJSBlueprint {
-  test(str) {
-    const num: number = "hello";
-    console.log(str)
+  test(str: string) {
+    const num: number = 5;
+    console.log(str + num);
   }
 }
 
