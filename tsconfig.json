@@ -6,6 +6,7 @@
     "target": "es5",
     "noImplicitThis": true,
     "noImplicitAny": true,
+    "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "typeRoots": [
