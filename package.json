@@ -11,8 +11,12 @@
   "author": "MXJRD",
   "license": "ISC",
   "dependencies": {
+    "argon2": "^0.27.1",
     "babel-polyfill": "^6.26.0",
+    "bcrypt": "^5.0.1",
+    "cookie-parser": "^1.4.5",
     "express": "^4.16.3",
+    "http": "0.0.1-security",
     "ts-node": "^9.1.1"
   },
   "devDependencies": {
