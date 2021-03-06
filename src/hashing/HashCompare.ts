@@ -1,6 +1,5 @@
 
-const bcrypt = require('bcrypt');
-// import * as bcrypt from "bcrypt"; //wtf?
+import * as bcrypt from "bcrypt";
 import * as argon2 from "argon2";
 class HashCompareBlueprint {
   async compareArgon2(hashedPassword: string, password: string) {
