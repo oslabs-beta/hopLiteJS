@@ -1,5 +1,4 @@
-// import * as bCrypt from "bcrypt"; //wtf
-const bcrypt = require('bcrypt');
+import * as bcrypt from "bcrypt";
 import * as argon2 from "argon2";
 class HashingMethodsBlueprint {
   async pwArgon2(password: string) {

@@ -1,12 +1,15 @@
-import Authentication from "../authentication/AuthenticationBlueprint";
-
-class DefaultHopliteBlueprint {
-  Authentication() //and authentication is going to set all the important parts for authorization.
-  Authorization() //authorization will check whether or not someone has been authenticated.
-
+interface AuthorizationControllerInterface {
+  authorizeCookie: any
 }
 
-//create an object with all the properties of calling Authentication and Authorization.
-//export the object
+class DefaultHopliteBlueprint {
+  AuthorizationController: AuthorizationControllerInterface
+  constructor(AuthorizationController: AuthorizationControllerInterface) {
+    this.AuthorizationController = AuthorizationController;
+  }
+  test(str: string) {
+    console.log(str);
+  }
+}
 
-const DefaultHoplite = new DefaultHopliteBlueprint();
+export default DefaultHopliteBlueprint;
