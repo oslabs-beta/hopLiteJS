@@ -1,15 +1,15 @@
 
 
-class QueriedUser {
-  const username: string;
-  const password: string;
-  const role: boolean;
-  constructor(username:string, password:string, role:boolean){
-    this.username = username,
-    this.password = password,
-    this.role = role
-  }
-}
+// class QueriedUser {
+//   const username: string;
+//   const password: string;
+//   const role: boolean;
+//   constructor(username:string, password:string, role:boolean){
+//     this.username = username,
+//     this.password = password,
+//     this.role = role
+//   }
+// }
 
 // const userLoggingIn = new QueriedUser('john1234','password',false)
 
@@ -26,25 +26,25 @@ interface queriedUserSchema{
 
 
 //app.post('/login','querycontroller', (req, res, next){})
-
+interface cookieRuleset {
+  duration: number;
+  encrypted: boolean;
+}
 
 class AuthenticationHelperMethods {
 
 
-  const userData = res.locals.user;
+  // const userData = res.locals.user;
 
-  
+  CookieRules(cookieRuleset: cookieRuleset){
+    return {
 
-}
-
-  addCookie(res: any){
-    res.cookie(userData);
-    res.send('cCookie Set.');
+    }
   }
 
   addJWT(){
 
-  },
+  }
 
   hashing(){
 
@@ -52,6 +52,6 @@ class AuthenticationHelperMethods {
 
 }
 
-module.export {
+export {
   AuthenticationHelperMethods
 }
