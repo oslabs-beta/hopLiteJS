@@ -1,11 +1,3 @@
-// req.cookie.role === "admin"
-// const {};
-// const { Request, Response } = require('@types/express');
-// we need to require a cookie parser
-// we need to have user install a cookie parser
-
-// interface cookie {role: string = "admin"}
-
 const err = new Error('Incorrect ownership or insufficient permissions');
 
 class AuthorizationHelperMethodsBlueprint {

@@ -12,7 +12,7 @@ class AdvancedHopliteBlueprint {
   AuthnController: AuthenticationControllerInterface;
   AuthzController: AuthorizationControllerInterface;
   constructor(AuthenticationController: AuthenticationControllerInterface, AuthorizationController: AuthorizationControllerInterface) {
-    this.AuthnController;
-    this.AuthzController;
+    this.AuthnController = AuthenticationController;
+    this.AuthzController = AuthorizationController;
   }
 }
