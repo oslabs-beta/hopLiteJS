@@ -1,13 +1,12 @@
-class hopLiteJSBlueprint {
-  test(str: string) {
-    const num: number = 5;
-    console.log(str + num);
-  }
-}
-
-const hopLiteJS = new hopLiteJSBlueprint();
-const { test } = hopLiteJS;
-
-module.exports = {
-  test
-}
+import DefaultHopliteBlueprint  from './modes/DefaultHoplite';
+import { AuthorizationControllerBlueprint } from './authorization/AuthorizationController';
+import { AuthenticationControllerBlueprint } from './authentication/AuthenticationController';
+import {HopliteUserSchemaBlueprint} from './modes/HopliteUserSchema'
+const AuthorizationController = new AuthorizationControllerBlueprint();
+const AuthenticationController = new AuthenticationControllerBlueprint();
+const DefaultHoplite = new DefaultHopliteBlueprint(AuthorizationController, AuthenticationController);
+const HopliteUserSchema = new HopliteUserSchemaBlueprint();
+export {
+  DefaultHoplite,
+  HopliteUserSchema
+};

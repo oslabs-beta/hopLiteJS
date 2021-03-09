@@ -11,8 +11,13 @@
   "author": "MXJRD",
   "license": "ISC",
   "dependencies": {
+    "@types/cookie-parser": "^1.4.2",
+    "argon2": "^0.27.1",
     "babel-polyfill": "^6.26.0",
-    "express": "^4.16.3",
+    "bcrypt": "^5.0.1",
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1",
+    "http": "0.0.1-security",
     "ts-node": "^9.1.1"
   },
   "devDependencies": {
@@ -20,6 +25,8 @@
     "@babel/plugin-proposal-class-properties": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
+    "@types/bcrypt": "^3.0.0",
+    "@types/express": "^4.17.11",
     "@types/node": "^14.14.31",
     "babel-eslint": "^10.0.0",
     "babel-loader": "^8.0.0",
