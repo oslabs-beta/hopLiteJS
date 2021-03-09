@@ -13,7 +13,7 @@ class CreationMethodsBlueprint {
   createJWT(secret: string) {
     return
   }
-  createSession (){
-    // return req.session.uid
+  createSession(secret: string){
+    
   }
 }
