@@ -41,15 +41,12 @@ class AuthenticationHelperMethods {
 
     }
   }
-
   addJWT(){
 
   }
-
   hashing(){
 
   }
-
 }
 
 export {

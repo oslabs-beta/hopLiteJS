@@ -1,10 +1,4 @@
 // import AuthenticationHelperMethods from 'AuthenticationHelperMethods';
-import { Request, Response, NextFunction } from  'express'
-// const req = Request;
-// const res = Response;
-// const nextOne = any;
-
-
 
 //interface for hopliteuser object
 interface hopLiteUser {
@@ -40,7 +34,6 @@ interface hopLiteRuleSet {
   ntlm?: boolean;
   akamai?: boolean;
   hawk?: boolean;
- 
 }
 
 
@@ -51,16 +44,16 @@ class AuthenticationControllerBlueprint {
   authenticate(hopLiteUser: hopLiteUser, ruleset: hopLiteRuleSet) { //hopLiteuser needs to be an object. Ruleset also needs to be an object. Within the scope typescript, 
   //we need to create interfaces for each of these objects, to appease the typescript gods.
   //  userLoggingIn.username
-    console.log('authenticate fx is working')
-    console.log('hoplite user:', hopLiteUser)
-    console.log('ruleset:', ruleset)
-      return function authenticate(req: any, res: any, next:any) {
-      console.log('inner fx is running')
+    console.log('authenticate fx is working');
+    console.log('hoplite user:', hopLiteUser);
+    console.log('ruleset:', ruleset);
+    return function authenticate(req: any, res: any, next:any) {
+      console.log('inner fx is running');
       if (ruleset.cookie) {
-        res.cookie('role', 'Admin').send("Cookie Set.");
-      } else {
-        throw new Error("Cookie not Set.")
+        res.cookie('role', 'Test3').send("Cookie Set.");
         next();
+      } else {
+        throw new Error("Cookie not Set.");
       }
       // addCookie();
       // addTWT();
