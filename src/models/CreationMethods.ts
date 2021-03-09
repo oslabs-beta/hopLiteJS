@@ -1,5 +1,5 @@
 class CreationMethodsBlueprint {
-  createUser(username: string, password: string, userRole: string) {
+  createUser(username: string, password: string, userRole: boolean) {
     const user = {
       username,
       password,
@@ -17,3 +17,4 @@ class CreationMethodsBlueprint {
     // return req.session.uid
   }
 }
+

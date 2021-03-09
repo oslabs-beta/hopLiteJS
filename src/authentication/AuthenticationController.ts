@@ -1,10 +1,4 @@
 // import AuthenticationHelperMethods from 'AuthenticationHelperMethods';
-import { Request, Response, NextFunction } from  'express'
-// const req = Request;
-// const res = Response;
-// const nextOne = any;
-
-
 
 //interface for hopliteuser object
 interface hopLiteUser {
@@ -52,12 +46,13 @@ class AuthenticationControllerBlueprint {
   //we need to create interfaces for each of these objects, to appease the typescript gods.
   //  userLoggingIn.username
     console.log('authenticate fx is working')
-    console.log('hoplite user:', hopLiteUser)
-    console.log('ruleset:', ruleset)
-      return function authenticate(req: any, res: any, next:any) {
+    // console.log('hoplite user:', hopLiteUser)
+    // console.log('ruleset:', ruleset)
+      return function innerfx(req: any, res: any, next:any) {
       console.log('inner fx is running')
       if (ruleset.cookie) {
         res.cookie('role', 'Admin').send("Cookie Set.");
+        next()
       } else {
         throw new Error("Cookie not Set.")
         next();
@@ -77,6 +72,3 @@ class AuthenticationControllerBlueprint {
 export {
   AuthenticationControllerBlueprint
 }
-
-
-
