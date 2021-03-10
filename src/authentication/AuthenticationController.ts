@@ -16,17 +16,17 @@ interface ErrorHandler {
   code: number;
   message: string;
 }
-interface CookieOptions {
-  cookieName: string;
-  role?: string;
-  duration?: number;
-  httpOnly?: boolean;
-  samesite?: string;
-  secure?: boolean;
-}
+// interface CookieOptions {
+//   cookieName: string;
+//   role?: string;
+//   duration?: number;
+//   httpOnly?: boolean;
+//   samesite?: string;
+//   secure?: boolean;
+// }
 //interface for ruleset object
 interface HopLiteRuleSet {
-  cookie : CookieOptions;
+  cookie : boolean;
   secret: string;
   jwt? : boolean;
   bcrypt? : boolean;
@@ -58,19 +58,18 @@ class AuthenticationControllerBlueprint {
     role,
     email
   }
-    const jwt = AuthenticationHelperMethods.createJWT(user, secret);
-    /*
-    interface JWTPayload {
-  username: string;
-  role: string;
-  email?: string;
-}
-    
-    */
+  // const jwt = AuthenticationHelperMethods.createJWT(user, secret);
+  /*
+  interface JWTPayload {
+    username: string;
+    role: string;
+    email?: string;
+  }
+  */
     return function innerfx(req: any, res: any, next:any) {
       console.log('inner fx is running');
-      if (ruleset.cookie.cookieName) {
-        res.cookie(ruleset.cookie.cookieName, jwt).send("Cookie Set.");
+      if(ruleset.cookie) {
+        res.cookie('role', 'admin').send("Cookie Set.");
         next();
       } else {
         throw new Error("Cookie not Set.");
@@ -81,7 +80,7 @@ class AuthenticationControllerBlueprint {
       // runAll();
     }
   }
-  isAuthenticated(hopLiteUser: HopLiteUser) { //
+  isAuthenticated(hopLiteUser: HopLiteUser) {
     //checks whether a user is authenticated
     
   }

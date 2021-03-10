@@ -10,7 +10,7 @@ class AuthorizationControllerBlueprint {
     AuthorizationHelperMethods.hasRole(req, res, next);
   }
   authorizeJWT(req: Request, res: Response, next: any) {
-    jwt.verify()
+    // jwt.verify()
   }
   authorizeSession(req: Request, res: Response, next: any) {
     
