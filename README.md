@@ -1,14 +1,14 @@
-#hoplitejs
+# hoplitejs
 
-##Introduction
-
-
-
-##Quick Start
+## Introduction
 
 
-##Documentation
 
-###Instalation Guide
+## Quick Start
+
+
+## Documentation
+
+### Instalation Guide
 
 
