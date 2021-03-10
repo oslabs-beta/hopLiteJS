@@ -9,6 +9,4 @@ class HopliteUserSchemaBlueprint  {
   }
 }
 
-
-
-export {HopliteUserSchemaBlueprint}
+export { HopliteUserSchemaBlueprint };

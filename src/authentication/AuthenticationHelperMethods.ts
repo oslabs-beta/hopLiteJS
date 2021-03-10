@@ -1,55 +1,21 @@
-
-
-// class QueriedUser {
-//   const username: string;
-//   const password: string;
-//   const role: boolean;
-//   constructor(username:string, password:string, role:boolean){
-//     this.username = username,
-//     this.password = password,
-//     this.role = role
-//   }
-// }
-
-// const userLoggingIn = new QueriedUser('john1234','password',false)
-
-class RuleSet {
-  
-}
-
-interface queriedUserSchema{
+import jwt from 'jsonwebtoken';
+interface JWTPayload {
   username: string;
-  password: string;
-  role: boolean;
+  role: string;
+  email?: string;
 }
-
-
-
-//app.post('/login','querycontroller', (req, res, next){})
-interface cookieRuleset {
-  duration: number;
-  encrypted: boolean;
-}
-
 class AuthenticationHelperMethods {
-
-
-  // const userData = res.locals.user;
-
-  CookieRules(cookieRuleset: cookieRuleset){
-    return {
-
-    }
+  createCookie(inputRole: string) {
+    // res.cookie({ role: inputRole })
   }
-
-  addJWT(){
-
+  static createJWT(payload: JWTPayload,secret: string) {
+    const credential = jwt.sign(payload, secret);
+    return credential;
   }
-
-  hashing(){
-
+  createSession(secret: string){
+    
   }
-
+  //load balancer
 }
 
 export {

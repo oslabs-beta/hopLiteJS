@@ -1,11 +1,10 @@
-
 import * as bcrypt from "bcrypt";
 import * as argon2 from "argon2";
 class HashCompareBlueprint {
   async compareArgon2(hashedPassword: string, password: string) {
     return await argon2.verify(hashedPassword, password);
   }
-  compareBcrypt(password: string) {
+  async compareBcrypt(hashedPassword: string, password: string) {
 
   }
 }
