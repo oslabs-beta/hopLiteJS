@@ -1,21 +1,53 @@
-import jwt from 'jsonwebtoken';
-interface JWTPayload {
-  username: string;
-  role: string;
-  email?: string;
+
+
+// class QueriedUser {
+//   const username: string;
+//   const password: string;
+//   const role: boolean;
+//   constructor(username:string, password:string, role:boolean){
+//     this.username = username,
+//     this.password = password,
+//     this.role = role
+//   }
+// }
+
+// const userLoggingIn = new QueriedUser('john1234','password',false)
+
+class RuleSet {
+  
 }
+
+interface queriedUserSchema{
+  username: string;
+  password: string;
+  role: boolean;
+}
+
+
+
+//app.post('/login','querycontroller', (req, res, next){})
+interface cookieRuleset {
+  duration: number;
+  encrypted: boolean;
+}
+
 class AuthenticationHelperMethods {
-  createCookie(inputRole: string) {
-    // res.cookie({ role: inputRole })
+
+
+  // const userData = res.locals.user;
+
+  CookieRules(cookieRuleset: cookieRuleset){
+    return {
+
+    }
   }
-  static createJWT(payload: JWTPayload,secret: string) {
-    const credential = jwt.sign(payload, secret);
-    return credential;
+
+  addJWT(){
+
   }
-  createSession(secret: string){
-    
-  }
-  //load balancer
+
+
+
 }
 
 export {
