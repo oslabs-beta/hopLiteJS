@@ -19,5 +19,3 @@ export {
   pwArgon2,
   pwBcrypt
 }
-
-export default HashMethods;
