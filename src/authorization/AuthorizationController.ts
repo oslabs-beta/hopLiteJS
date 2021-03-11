@@ -1,5 +1,4 @@
-import jwt from 'jsonwebtoken';
-import { AuthorizationHelperMethods } from "./AuthorizationHelperMethods";
+const { AuthorizationHelperMethods } = require("./AuthorizationHelperMethods");
 // const { ModuleResolutionKind } = require("typescript");
 
 class AuthorizationControllerBlueprint {
@@ -7,13 +6,14 @@ class AuthorizationControllerBlueprint {
     console.log(str);
   }
   authorizeCookie(req: Request, res: Response, next: any) { //these are the methods that the developer using our software invoke
-    console.log("authorizeCookie is firing.");
+    console.log('authorizeCookie is firing.');
     AuthorizationHelperMethods.hasRole(req, res, next);
   }
   authorizeJWT(req: Request, res: Response, next: any) {
-    // jwt.verify()
+    console.log('authorizeJWT is firing.');
+    AuthorizationHelperMethods.hasCorrectToken(req, res, next);
   }
-  authorizeSession(req: Request, res: Response, next: any) {
+  authorizeSession() {
     
   }
 }

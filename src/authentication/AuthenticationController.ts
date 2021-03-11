@@ -1,10 +1,9 @@
-import { AuthenticationHelperMethods } from './AuthenticationHelperMethods';
+const jwt = require('jsonwebtoken');
 //interface for hopliteuser object
-interface HopLiteUser {
+interface hopLiteUser {
   username: string;
   password: string;
-  role: string; //make sure to refactor code to represent role as a string
-  email?: string;
+  privilege: boolean;
 }
 /*
 stretch feature: change privilege to number (eg. 1-4)
@@ -12,22 +11,14 @@ stretch feature: change privilege to number (eg. 1-4)
 
 
 //interface for error object
-interface ErrorHandler {
+interface errorHandler {
   code: number;
   message: string;
 }
-// interface CookieOptions {
-//   cookieName: string;
-//   role?: string;
-//   duration?: number;
-//   httpOnly?: boolean;
-//   samesite?: string;
-//   secure?: boolean;
-// }
+
 //interface for ruleset object
-interface HopLiteRuleSet {
+interface hopLiteRuleSet {
   cookie : boolean;
-  secret: string;
   jwt? : boolean;
   bcrypt? : boolean;
   salting? : number;
@@ -42,6 +33,7 @@ interface HopLiteRuleSet {
   ntlm?: boolean;
   akamai?: boolean;
   hawk?: boolean;
+ 
 }
 
 
@@ -49,46 +41,52 @@ class AuthenticationControllerBlueprint {
   testAuthn(str: string) {
     console.log(str);
   }
-  authenticate(hopLiteUser: HopLiteUser, ruleset: HopLiteRuleSet) { //hopLiteuser needs to be an object. Ruleset also needs to be an object. Within the scope typescript, 
-  //we need to create interfaces for each of these objects, to appease the typescript gods.
-  const { username, role, email } = hopLiteUser;
-  const { secret } = ruleset;
-  const user = {
-    username,
-    role,
-    email
-  }
-  // const jwt = AuthenticationHelperMethods.createJWT(user, secret);
-  /*
-  interface JWTPayload {
-    username: string;
-    role: string;
-    email?: string;
-  }
+  /*TEDS COMMENT: how should we do this part? for in loop? eg. ruleset = {authenticateCookie: true, authenticateJWT: false}
+    for(let key in ruleset){
+      if(ruleset[key]) key();
+    }
   */
-    return function innerfx(req: any, res: any, next:any) {
-      console.log('inner fx is running');
-      if(ruleset.cookie) {
-        res.cookie('role', 'admin').send("Cookie Set.");
-        next();
-      } else {
-        throw new Error("Cookie not Set.");
-      }
-      // addCookie();
-      // addTWT();
-      // hashing();
-      // runAll();
+  
+  ruleset(ruleset: hopLiteRuleSet){
+    for(let key in ruleset){
+      if(ruleset[key:]) key();
     }
   }
-  isAuthenticated(hopLiteUser: HopLiteUser) {
-    //checks whether a user is authenticated
-    
+  
+  authenticateCookie(hopLiteUser: hopLiteUser, ruleset: hopLiteRuleSet) { //hopLiteuser needs to be an object. Ruleset also needs to be an object. Within the scope typescript, 
+  //we need to create interfaces for each of these objects, to appease the typescript gods.
+  //  userLoggingIn.username
+    console.log('authenticate fx is working')
+    // console.log('hoplite user:', hopLiteUser)
+    // console.log('ruleset:', ruleset)
+      return function(req: any, res: any, next:any) {
+      console.log('inner fx is running')
+      if (ruleset.cookie) {
+        res.cookie('role', 'Admin').send("Cookie Set.");
+        next()
+      } else {
+        throw new Error("Cookie not Set.")
+        next();
+      }
+    } 
+  }
+  authenticateJWT(queriedId: string, secret: string, ruleset: hopLiteRuleSet){
+    console.log('JWT is working')
+    return function(req: any, res: any, next:any) {
+      console.log('inner function is sucessful')
+      if (ruleset.jwt) {
+        const token = jwt.sign(queriedId,secret)
+        res.status(200).set({auth: true, token: token})
+        next()
+      } else {
+        throw new Error("JWT not Set.")
+        next();
+      }
   }
 } 
 
 
-  // ApiRouter.get('/login', DefaultHoplite.authenticate(user, ruleset), (req, res) {}
-  // })
+
 
 export {
   AuthenticationControllerBlueprint
