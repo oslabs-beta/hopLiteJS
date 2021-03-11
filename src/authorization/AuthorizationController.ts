@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { AuthorizationHelperMethods } from "./AuthorizationHelperMethods";
 // const { ModuleResolutionKind } = require("typescript");
+
 class AuthorizationControllerBlueprint {
   testAuthz(str: string) {
     console.log(str);
@@ -17,7 +18,6 @@ class AuthorizationControllerBlueprint {
   }
 }
 
-// export default AuthorizationControllerBlueprint;
 export {
   AuthorizationControllerBlueprint
 }
