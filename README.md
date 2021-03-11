@@ -9,6 +9,6 @@
 
 ## Documentation
 
-### Instalation Guide
+### Installation Guide
 
 
