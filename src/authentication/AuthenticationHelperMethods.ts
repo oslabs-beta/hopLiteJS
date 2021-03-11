@@ -46,9 +46,7 @@ class AuthenticationHelperMethods {
 
   }
 
-  hashing(){
 
-  }
 
 }
 
