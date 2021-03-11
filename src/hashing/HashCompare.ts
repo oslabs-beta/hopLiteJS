@@ -18,3 +18,4 @@ export {
   compareBcrypt
 }
 export default HashCompare;
+//
