@@ -4,7 +4,7 @@ class HashCompareBlueprint {
   async compareArgon2(hashedPassword: string, password: string) {
     return await argon2.verify(hashedPassword, password);
   }
-  async compareBcrypt(hashedPassword: string, password: string) {
+  compareBcrypt(password: string) {
 
   }
 }

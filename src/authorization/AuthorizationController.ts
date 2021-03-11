@@ -1,5 +1,4 @@
-import jwt from 'jsonwebtoken';
-import { AuthorizationHelperMethods } from "./AuthorizationHelperMethods";
+const { AuthorizationHelperMethods } = require("./AuthorizationHelperMethods");
 // const { ModuleResolutionKind } = require("typescript");
 
 class AuthorizationControllerBlueprint {
@@ -10,10 +9,10 @@ class AuthorizationControllerBlueprint {
     console.log("authorizeCookie is firing.");
     AuthorizationHelperMethods.hasRole(req, res, next);
   }
-  authorizeJWT(req: Request, res: Response, next: any) {
-    // jwt.verify()
+  authorizeJWT() {
+
   }
-  authorizeSession(req: Request, res: Response, next: any) {
+  authorizeSession() {
     
   }
 }
