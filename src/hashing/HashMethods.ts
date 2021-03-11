@@ -7,31 +7,17 @@ class HashingMethodsBlueprint {
     return await argon2.hash(password);
   }
 
-  async pwBcrypt(password: string, salt: number = 10) {
-    console.log('bcrypt works!');
-    // return await 
-    let test = await bcrypt.hash(password, salt);
-    console.log('test',test);
-    return  test;
-  }
-
-  async compareArgon2(hashedPassword: string, password: string) {
-    return await argon2.verify(hashedPassword, password);
-  }
-  //TED's comment: do we need another parameter below in 'compareBcrypt' for the database password?  compare: formPassword and dbpassword attached to username
-  async compareBcrypt(password: string) {
-
+  async pwBcrypt(password: string, salt: number) {
+    return await bcrypt.hash(password, salt);
   }
 }
 
-// const HashMethods = new HashingMethodsBlueprint();
-// const { pwArgon2, pwBcrypt, compareArgon2, compareBcrypt } = HashMethods;
+const HashMethods = new HashingMethodsBlueprint();
+const { pwArgon2, pwBcrypt } = HashMethods;
 
-// export {
-//   pwArgon2,
-//   pwBcrypt,
-//   compareArgon2,
-//   compareBcrypt
-// };
-export { HashingMethodsBlueprint };
-// export default HashMethods;
+export {
+  pwArgon2,
+  pwBcrypt
+}
+
+export default HashMethods;
