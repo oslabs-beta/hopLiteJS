@@ -1,16 +1,18 @@
 interface compare {
-
+  compareArgon2: any;
+  compareBcrypt: any;
 }
 
 interface hashCreate {
-
+  createArgon2: any;
+  createBcrypt: any;
 }
 
 class Hashing {
-  comparison: compare;
+  compare: compare;
   hashCreation: hashCreate;
   constructor(comparisonFunctions: compare, hashCreationFunctions: hashCreate) {
-    this.comparison = comparisonFunctions;
+    this.compare = comparisonFunctions;
     this.hashCreation = hashCreationFunctions;
   }
 }
