@@ -5,6 +5,7 @@ class AuthorizationControllerBlueprint {
   // testAuthz(str: string) {
   //   console.log(str);
   // }
+
   authorizeCookie(req: Request, res: Response, next: any) { //these are the methods that the developer using our software invoke
     console.log('authorizeCookie is firing.');
     AuthorizationHelperMethodsBlueprint.hasRole(req, res, next);
@@ -34,6 +35,8 @@ class AuthorizationControllerBlueprint {
     }
   }
 }
+
+
 
 export {
   AuthorizationControllerBlueprint

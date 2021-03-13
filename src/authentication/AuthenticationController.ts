@@ -16,6 +16,7 @@ interface errorHandler {
 
 //interface for ruleset object
 interface hopLiteRuleSet {
+  cookiejwt: boolean;
   cookie? : boolean;
   jwt? : boolean;
   cookiejwt: boolean;
@@ -48,6 +49,7 @@ class AuthenticationControllerBlueprint {
       if(ruleset[key]) key();
     }
   */
+
   authenticateCookie(hopLiteUser: hopLiteUser, ruleset: hopLiteRuleSet, res: any) { 
     console.log('authenticate fx is working')
       if (ruleset.cookie) {
@@ -61,9 +63,21 @@ class AuthenticationControllerBlueprint {
     console.log('JWT is working')
     if (ruleset.jwt) {
       const token = jwt.sign(payload,secret)
+      console.log(token);
       res.status(200).set({auth: true, token: token})
     } else {
       throw new Error("JWT not Set.")
+    }
+  }
+
+  authenticate(hopLiteUser: hopLiteUser, ruleset: hopLiteRuleSet, payload: payload, secret: string, res: any) {
+    //this method needs to set a cookie AND JWT combination
+    if(ruleset.cookiejwt){
+      const token = jwt.sign(payload,secret);
+      console.log("this is our jwt", token);
+      res.cookie('token',token).send("Cookie-JWT Set.");
+    } else {
+      throw new Error("Cannot set Cookie-JWT.")
     }
   }
 
@@ -75,6 +89,14 @@ class AuthenticationControllerBlueprint {
     } else {
       throw new Error("Cannot set Cookie-JWT.")
     }
+    //a JWT needs to take in whatever a developer needs
+    //we need a userObject to create a jwt
+    //ruleset should only reflect that we need a cookie//jwt combo
+    //can we get a secret, and the queriedID from the same data type?
+    //if you only need res, how do you receive res in the authenticate method?
+  }
+}
+
     //a JWT needs to take in whatever a developer needs
     //we need a userObject to create a jwt
     //ruleset should only reflect that we need a cookie//jwt combo
