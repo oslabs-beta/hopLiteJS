@@ -1,3 +1,5 @@
+import { SourceMapPayload } from "node:module";
+
 const jwt = require('jsonwebtoken');
 //interface for hopliteuser object
 interface hopLiteUser {
@@ -5,10 +7,6 @@ interface hopLiteUser {
   password: string;
   privilege: boolean;
 }
-/*
-stretch feature: change privilege to number (eg. 1-4)
-*/
-
 
 //interface for error object
 interface errorHandler {
@@ -18,7 +16,8 @@ interface errorHandler {
 
 //interface for ruleset object
 interface hopLiteRuleSet {
-  cookie : boolean;
+  cookiejwt: boolean;
+  cookie? : boolean;
   jwt? : boolean;
   bcrypt? : boolean;
   salting? : number;
@@ -36,58 +35,62 @@ interface hopLiteRuleSet {
  
 }
 
+interface payload {
+  username: string;
+  password: string;
+  privilege: boolean;
+}
 
 class AuthenticationControllerBlueprint {
-  testAuthn(str: string) {
-    console.log(str);
-  }
+
   /*TEDS COMMENT: how should we do this part? for in loop? eg. ruleset = {authenticateCookie: true, authenticateJWT: false}
     for(let key in ruleset){
       if(ruleset[key]) key();
     }
   */
-  
-  ruleset(ruleset: hopLiteRuleSet){
-    for(let key in ruleset){
-      if(ruleset[key:]) key();
-    }
-  }
-  
-  authenticateCookie(hopLiteUser: hopLiteUser, ruleset: hopLiteRuleSet) { //hopLiteuser needs to be an object. Ruleset also needs to be an object. Within the scope typescript, 
-  //we need to create interfaces for each of these objects, to appease the typescript gods.
-  //  userLoggingIn.username
+
+  authenticateCookie(hopLiteUser: hopLiteUser, ruleset: hopLiteRuleSet, res: any) { 
     console.log('authenticate fx is working')
-    // console.log('hoplite user:', hopLiteUser)
-    // console.log('ruleset:', ruleset)
-      return function(req: any, res: any, next:any) {
-      console.log('inner fx is running')
       if (ruleset.cookie) {
         res.cookie('role', 'Admin').send("Cookie Set.");
-        next()
       } else {
         throw new Error("Cookie not Set.")
-        next();
       }
-    } 
   }
-  authenticateJWT(queriedId: string, secret: string, ruleset: hopLiteRuleSet){
+
+  authenticateJWT(payload: payload, secret: string, ruleset: hopLiteRuleSet, res: any){
     console.log('JWT is working')
-    return function(req: any, res: any, next:any) {
-      console.log('inner function is sucessful')
-      if (ruleset.jwt) {
-        const token = jwt.sign(queriedId,secret)
-        res.status(200).set({auth: true, token: token})
-        next()
-      } else {
-        throw new Error("JWT not Set.")
-        next();
-      }
+    if (ruleset.jwt) {
+      const token = jwt.sign(payload,secret)
+      console.log(token);
+      res.status(200).set({auth: true, token: token})
+    } else {
+      throw new Error("JWT not Set.")
+    }
   }
-} 
+
+  authenticate(hopLiteUser: hopLiteUser, ruleset: hopLiteRuleSet, payload: payload, secret: string, res: any) {
+    //this method needs to set a cookie AND JWT combination
+    if(ruleset.cookiejwt){
+      const token = jwt.sign(payload,secret);
+      console.log("this is our jwt", token);
+      res.cookie('token',token).send("Cookie-JWT Set.");
+    } else {
+      throw new Error("Cannot set Cookie-JWT.")
+    }
 
 
 
+    //a JWT needs to take in whatever a developer needs
+    //we need a userObject to create a jwt
+    //ruleset should only reflect that we need a cookie//jwt combo
+    //can we get a secret, and the queriedID from the same data type?
+    //if you only need res, how do you receive res in the authenticate method?
+  }
+}
 
 export {
   AuthenticationControllerBlueprint
 }
+
+
