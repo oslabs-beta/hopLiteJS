@@ -1,5 +1,5 @@
 # hoplitejs
-![hopLiteJS](https://ibb.co/9vnH7km)
+![hopLiteJS](https://i.ibb.co/sPj9Zdp/hoplite.png)
 - [hopLiteJS](#hopLiteJS)
   - [Introduction](#introduction)
     - [Development mode](#development-mode)
