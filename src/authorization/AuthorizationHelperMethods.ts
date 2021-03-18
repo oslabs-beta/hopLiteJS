@@ -18,7 +18,6 @@ class AuthorizationHelperMethodsBlueprint {
       }
   }
 }
- 
 export {
   AuthorizationHelperMethodsBlueprint
 }
