@@ -19,7 +19,6 @@ interface hopLiteRuleSet {
   cookiejwt: boolean;
   cookie? : boolean;
   jwt? : boolean;
-  cookiejwt: boolean;
   bcrypt? : boolean;
   salting? : number;
   argon? : boolean;
@@ -81,14 +80,14 @@ class AuthenticationControllerBlueprint {
     }
   }
 
-  authenticate(hopLiteUser: hopLiteUser, ruleset: hopLiteRuleSet, payload: payload, secret: string, res: any) {
-    //this method needs to set a cookie AND JWT combination
-    if(ruleset.cookiejwt){
-      const token = jwt.sign(payload,secret);
-      res.cookie('token',token).send("Cookie-JWT Set.");
-    } else {
-      throw new Error("Cannot set Cookie-JWT.")
-    }
+  // authenticate(hopLiteUser: hopLiteUser, ruleset: hopLiteRuleSet, payload: payload, secret: string, res: any) {
+  //   //this method needs to set a cookie AND JWT combination
+  //   if(ruleset.cookiejwt){
+  //     const token = jwt.sign(payload,secret);
+  //     res.cookie('token',token).send("Cookie-JWT Set.");
+  //   } else {
+  //     throw new Error("Cannot set Cookie-JWT.")
+  //   }
     //a JWT needs to take in whatever a developer needs
     //we need a userObject to create a jwt
     //ruleset should only reflect that we need a cookie//jwt combo

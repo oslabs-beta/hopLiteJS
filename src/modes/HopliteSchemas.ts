@@ -28,12 +28,13 @@ class HopliteSchemasBlueprint {
     const ruleset = {};
 
     for (let rule in ruleset){
-      
-
+      if (!rule) {
+        ruleset[rule] = ;
+      }
     }
     return ruleset;
-  
   }
+
 */
 
 }
