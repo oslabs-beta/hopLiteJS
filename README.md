@@ -73,7 +73,17 @@ the above code creates an object that ends up turning into a hopLite friendly ob
  HopliteSchemas.createRuleset(...args);
 ```
 
-git commit -m “Added developer friendly options on the ReadMe Co-authored-by: Maxwell reed182@mail.chapman.edu Co-authored-by: Ted tedtaemin@gmail.com Co-authored-by: Karin karin.illesova@gmail.com”
+{
+  cookiejwt: {
+    cookiekey: "testCookieKey",
+    secret: "testSecretString",
+    payload: {
+      userKey1: someVal
+    }
+
+  }
+}
+
 *DefaultHoplite*
 This is the batteries included option. By default, it will create a cookie and JWT combination upon successful user authentication. 
 
