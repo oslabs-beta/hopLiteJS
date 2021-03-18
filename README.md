@@ -1,5 +1,5 @@
 # hoplitejs
-
+![hopLiteJS](https://i.ibb.co/sPj9Zdp/hoplite.png)
 - [hopLiteJS](#hopLiteJS)
   - [Introduction](#introduction)
     - [Development mode](#development-mode)
@@ -84,21 +84,21 @@ Four Steps to protecting your assets!
 
 ##### DefaultHoplite
 [DefaultHoplite](#DefaultHoplite)
-  -[AuthnController](#AuthnController)
+  1. [AuthnController](#AuthnController)
     1. authentication
     2. authenticateCookie
     3. authenticateJWT
-  -[AuthzController](#AuthzController)
+  2. [AuthzController](#AuthzController)
     1. authorize
     2. authorizeCookie
     3. authorizeJWT
 ##### AdvancedHoplite
 [AdvancedHoplite](#AdvancedHoplite)
-  -[AuthnController](#AuthnController)
+  1.[AuthnController](#AuthnController)
     1. authentication
     2. authenticateCookie
     3. authenticateJWT
-  -[AuthzController](#AuthzController)
+  2.[AuthzController](#AuthzController)
     1. authorize
     2. authorizeCookie
     3. authorizeJWT
@@ -107,7 +107,7 @@ Four Steps to protecting your assets!
 ##### HopliteSchemas
 [HopliteSchemas](#HopliteSchemas)
   These methods represent the information that **hopLiteJS** needs in order to function.
-  -[HopliteSchemas](#createHoplite)
+  1.[HopliteSchemas](#createHoplite)
     1. Takes in *username*, *password*, and *role/privilege* as arguments.
     2. Returns an **object**.
     ```javascript
@@ -116,14 +116,14 @@ Four Steps to protecting your assets!
       return createdUser;
     }
     ```
-  -[HopliteSchemas](#createRuleset)
+  2.[HopliteSchemas](#createRuleset)
     1. Takes in many optional arguments.
-      1. cookie: object
-      2. jwt: object
-      3. bearerToken: boolean
-      4. ntlm: string
-      5. hawk: string
-      6. secret: string
+      - cookie: object
+      - jwt: object
+      - bearerToken: boolean
+      - ntlm: string
+      - hawk: string
+      - secret: string
     2. Returns an **object**.
     ```javascript
     const { createRuleset } = require("your-file-path-here.someExtension");
@@ -133,15 +133,15 @@ Four Steps to protecting your assets!
     ```
 ##### HashMethods
 [HashMethods](#HashMethods)
-  -[pwbcrypt](#pwbcrypt)
+  1.[pwbcrypt](#pwbcrypt)
     1. Takes *inputString* and an *optional* costFactor argument. costFactor has a default number.
     2. Returns a **hashed string**;
-  -[pwArgon2](#pwArgon2)
+  2.[pwArgon2](#pwArgon2)
     1. Takes *inputString*.
     2. Returns a **hashed string**;
-  -[compareBcrypt](#compareBcrypt)
+  3.[compareBcrypt](#compareBcrypt)
     1. Takes *inputString* and *hashedString* as arguments.
     2. Returns a **boolean**;
-  -[compareArgon2](#compareArgon2)
+  4.[compareArgon2](#compareArgon2)
     1. Takes *inputString* and *hashedString* as arguments.
     2. Returns a **boolean**;

@@ -1,5 +1,6 @@
 import { AuthorizationHelperMethodsBlueprint } from './AuthorizationHelperMethods';
-import jwt from 'jsonwebtoken';
+import * as jwt from 'jsonwebtoken';
+import { HopLiteUser, HopLiteRuleset } from "../types";
 
 class AuthorizationControllerBlueprint {
   // testAuthz(str: string) {
@@ -11,32 +12,34 @@ class AuthorizationControllerBlueprint {
     AuthorizationHelperMethodsBlueprint.hasRole(req, res, next);
   }
 
-  authorizeJWT(secret:string){
-    return function(req: any, res: any, next: any){
+  authorizeJWT(secret: string) {
+    return function (req: any, res: any, next: any) {
       console.log('authorizeJWT is firing.');
       const token = req.headers['x-access-token'];
-      if(token){
-        const verifyJWT =  jwt.verify(token, secret)
-        return verifyJWT 
-      } 
+      if (token) {
+        const verifyJWT = jwt.verify(token, secret)
+        return verifyJWT
+      }
     }
   }
-  
-  authorize(secret:string){
-    return function(req: any, res: any, next: any) {
+
+  authorize(ruleset: HopLiteRuleset, secret: string) {
+    return function (req: any, res: any, next: any) {
       console.log('authorizeCookieJWT is firing.');
       const cookies = req.cookies;
-      if(cookies.token){
-        const token = cookies.token
-        const verifyJWT = jwt.verify(token, secret)
+      if (cookies[ruleset.cookiejwt.cookieKey]) {
+        const token = cookies[ruleset.cookiejwt.cookieKey];
         //returns decoded token or error message
-        return verifyJWT;
+        try {
+          jwt.verify(token, secret);
+          next();
+        } catch {
+          res.status(403).send("You do not have the required credentials.")
+        }
       }
     }
   }
 }
-
-
 
 export {
   AuthorizationControllerBlueprint

@@ -1,12 +1,12 @@
 import * as bcrypt from "bcrypt";
 import * as argon2 from "argon2";
 
-
+//hashed and compared are the bcrypt methods and are used as hoplite defaults.
 class HashingMethodsBlueprint {
   async pwArgon2(password: string) {
     return await argon2.hash(password);
   }
-  async pwBcrypt(inputPassword: string, salt: number = 10) {
+  async hashed(inputPassword: string, salt: number = 10) {
     console.log('bcrypt input hashing works!');
     return await bcrypt.hash(inputPassword, salt);
   }
@@ -14,22 +14,19 @@ class HashingMethodsBlueprint {
     return await argon2.verify(hashedPassword, password);
   }
   
-  async compareBcrypt(inputPassword: string, hashedPassword: string) {
+  async compared(inputPassword: string, hashedPassword: string) {
     console.log('bcrypt comparison hashing works!');
     return await bcrypt.compare(inputPassword, hashedPassword);
   }
 }
 
-
-
-
 const HashMethods = new HashingMethodsBlueprint();
-const { pwArgon2, pwBcrypt, compareArgon2, compareBcrypt } = HashMethods;
+const { pwArgon2, hashed, compareArgon2, compared } = HashMethods;
 
 export {
   pwArgon2,
-  pwBcrypt,
   compareArgon2,
-  compareBcrypt
+  hashed,
+  compared
 };
 export default HashMethods;
