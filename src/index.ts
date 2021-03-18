@@ -9,7 +9,6 @@ const AuthenticationController = new AuthenticationControllerBlueprint();
 const DefaultHoplite = new DefaultHopliteBlueprint(AuthorizationController, AuthenticationController);
 const HopliteSchemas = new HopliteSchemasBlueprint();
 
-
 export {
   DefaultHoplite,
   HopliteSchemas
