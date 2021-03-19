@@ -1,4 +1,5 @@
 import * as fs from 'fs';
+import { textChangeRangeIsUnchanged } from 'typescript';
 const commonPasswords = fs.readFileSync('./commonPasswords.txt', { encoding: 'utf8' });
 const listCommonPasswords = commonPasswords.split('\n');
 console.log(listCommonPasswords)
@@ -29,14 +30,38 @@ class Utilities {
   static passwordDuration(duration: number) {
 
   }
+  
 }
 
 class TokenBucket {
-  constructor() {
-    
+  capacity: number;
+  tokens: number;
+  lastRefill: number;
+  fillPerMinute: number;
+  constructor(capacity: number, fillPerMinute: number) {
+    this.capacity = capacity;
+    this.tokens = this.capacity;
+    this.lastRefill = Math.floor((Date.now() / 1000) / 60);
+    this.fillPerMinute = fillPerMinute;
+  }
+  useToken() {
+    this.refillTokens();
+    if (this.tokens > 0) {
+      this.tokens -= 1;
+      return true;
+    }
+    return false;
+  }
+  refillTokens() {
+    const now = Math.floor((Date.now() / 1000) / 60);
+    const rate = (now - this.lastRefill) / this.fillPerMinute;
+
+    this.tokens = Math.min(this.capacity, this.tokens + Math.floor(rate * this.capacity));
+    this.lastRefill = now;
   }
 }
 
 export {
-  Utilities
+  Utilities,
+  TokenBucket
 }

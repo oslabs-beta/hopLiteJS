@@ -16,21 +16,21 @@ interface payload {
 
 class AuthenticationControllerBlueprint {
   authenticateCookie(hopLiteUser: HopLiteUser, ruleset: HopLiteRuleset, res: any) {
-    console.log('authenticate fx is working')
+    console.log('authenticate fx is working');
     if (ruleset.cookie) {
       res.cookie('role', 'Admin').send("Cookie Set.");
     } else {
-      throw new Error("Cookie not Set.")
+      throw new Error("Cookie not Set.");
     }
   }
   authenticateJWT(payload: payload, secret: string, ruleset: HopLiteRuleset, res: any) {
-    console.log('JWT is working')
+    console.log('JWT is working');
     if (ruleset.jwt) {
-      const token = jwt.sign(payload, secret)
+      const token = jwt.sign(payload, secret);
       console.log(token);
-      res.status(200).set({ auth: true, token: token })
+      res.status(200).set({ auth: true, token: token });
     } else {
-      throw new Error("JWT not Set.")
+      throw new Error("JWT not Set.");
     }
   }
   authenticate(ruleset: HopLiteRuleset, res: any) {
@@ -42,7 +42,7 @@ class AuthenticationControllerBlueprint {
       // console.log(payload)
       res.cookie(cookieKey, token).send("Cookie-JWT Set.");
     } else {
-      throw new Error("Cannot set Cookie-JWT.")
+      throw new Error("Cannot set Cookie-JWT.");
     }
   }
 }
@@ -50,5 +50,3 @@ class AuthenticationControllerBlueprint {
 export {
   AuthenticationControllerBlueprint
 }
-
-

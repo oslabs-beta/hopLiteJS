@@ -1,6 +1,3 @@
-
-
-
 class HopliteSchemasBlueprint {
   createUser(username: string, password: string, userRole: boolean) {
     const user = {
@@ -22,5 +19,3 @@ class HopliteSchemasBlueprint {
 export {
   HopliteSchemasBlueprint
 }
-
-
