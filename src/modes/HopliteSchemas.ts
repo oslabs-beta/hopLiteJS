@@ -10,7 +10,6 @@ class HopliteSchemasBlueprint {
     }
     return user;
   }
-
   createRuleset(bool: boolean) { //...args: any
     const ruleset = {
       cookiejwt: bool
@@ -38,9 +37,6 @@ class HopliteSchemasBlueprint {
 */
 
 }
-
-
-
 
 export {
   HopliteSchemasBlueprint

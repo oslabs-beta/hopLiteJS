@@ -1,5 +1,5 @@
 # hoplitejs
-
+![hopLiteJS](https://i.ibb.co/sPj9Zdp/hoplite.png)
 - [hopLiteJS](#hopLiteJS)
   - [Introduction](#introduction)
     - [Development mode](#development-mode)
@@ -28,23 +28,52 @@
 
 ## Introduction
 Welcome to **hopLiteJS**!
+hopLiteJS is a developer friendly middleware library for Node.js. hopLiteJS can be imported and used in to any Express-based web application. hopLiteJS has multiple developer interfaces for customizing authentication and authorization.
+
+hopLiteJS is equiped with two modes: default and advanced. Default mode is recommended for most developers because it is easier to use and minimizes the need for users to make security decisions because of preset security methods. However, for more experienced developers who have a thorough understanding of security, advanced mode is recommended as it contains more options to customize authentication and authorization to fulfill specific needs. 
+
+## Philosophy
+**hopLiteJS** was created as a way to abstract authentication and authorization for developers who need to implement these functionalities. The purpose of this library is to create a security suite that will give developers the ability to hash, authenticate, and authorize users to protect routes. Since authentication and authorization can be time consuming and complex, hopLiteJS aims to solve this problem by providing developers a user-friendly library. 
 
 ### Installation Guide
-It's as easy as:
-**1.**
+In the terminal type the following line :
 ```
 npm install hopLiteJS
 ```
 
-## Philosophy
-**hopLiteJS** was created as a way to abstract authentication and authorization for developers who need to implement these functionalities. We wanted to create a security suite that will give users the ability to hash, authenticate, and authorize users to protect routes. Authentication and Authorization can be time consuming; our goal is to solve this problem.
 
-~~Verbose Code~~
-~~Difficult Documentation~~
 
-## Quick Start
-**Install** [hopLiteJS](#hopLiteJS);
+## Usage
+**Default hopLite** [hopLiteJS](#hopLiteJS);
+#### Step by Step:
+1. Import HopLiteSchemas by writing at the top of the file 
+```js
+ import HopliteSchemas from 'hopLiteJS';
+```
+2. Create and save a user object using:
+```js
+ HopliteSchemas.createUser(username, password, role);
+```
+example : 
+```js
+const username = "JonSmith"
+const password = "pass123"
+const role = "admin"
+ HopliteSchemas.createUser(username, password, role);
+```
+the above code creates an object that ends up turning into a hopLite friendly object ready for authorizational use and looks like : 
+```js
+ {username: "JonSmith",
+  password: "pass123"
+  role: "admin"
+ }
+```
+3. Create and save a ruleset object using:
+```js
+ HopliteSchemas.createRuleset(...args);
+```
 
+git commit -m “Added developer friendly options on the ReadMe Co-authored-by: Maxwell reed182@mail.chapman.edu Co-authored-by: Ted tedtaemin@gmail.com Co-authored-by: Karin karin.illesova@gmail.com”
 *DefaultHoplite*
 This is the batteries included option. By default, it will create a cookie and JWT combination upon successful user authentication. 
 
@@ -84,21 +113,21 @@ Four Steps to protecting your assets!
 
 ##### DefaultHoplite
 [DefaultHoplite](#DefaultHoplite)
-  -[AuthnController](#AuthnController)
+  1. [AuthnController](#AuthnController)
     1. authentication
     2. authenticateCookie
     3. authenticateJWT
-  -[AuthzController](#AuthzController)
+  2. [AuthzController](#AuthzController)
     1. authorize
     2. authorizeCookie
     3. authorizeJWT
 ##### AdvancedHoplite
 [AdvancedHoplite](#AdvancedHoplite)
-  -[AuthnController](#AuthnController)
+  1.[AuthnController](#AuthnController)
     1. authentication
     2. authenticateCookie
     3. authenticateJWT
-  -[AuthzController](#AuthzController)
+  2.[AuthzController](#AuthzController)
     1. authorize
     2. authorizeCookie
     3. authorizeJWT
@@ -107,7 +136,7 @@ Four Steps to protecting your assets!
 ##### HopliteSchemas
 [HopliteSchemas](#HopliteSchemas)
   These methods represent the information that **hopLiteJS** needs in order to function.
-  -[HopliteSchemas](#createHoplite)
+  1.[HopliteSchemas](#createHoplite)
     1. Takes in *username*, *password*, and *role/privilege* as arguments.
     2. Returns an **object**.
     ```javascript
@@ -116,14 +145,14 @@ Four Steps to protecting your assets!
       return createdUser;
     }
     ```
-  -[HopliteSchemas](#createRuleset)
+  2.[HopliteSchemas](#createRuleset)
     1. Takes in many optional arguments.
-      1. cookie: object
-      2. jwt: object
-      3. bearerToken: boolean
-      4. ntlm: string
-      5. hawk: string
-      6. secret: string
+      - cookie: object
+      - jwt: object
+      - bearerToken: boolean
+      - ntlm: string
+      - hawk: string
+      - secret: string
     2. Returns an **object**.
     ```javascript
     const { createRuleset } = require("your-file-path-here.someExtension");
@@ -133,15 +162,15 @@ Four Steps to protecting your assets!
     ```
 ##### HashMethods
 [HashMethods](#HashMethods)
-  -[pwbcrypt](#pwbcrypt)
+  1.[pwbcrypt](#pwbcrypt)
     1. Takes *inputString* and an *optional* costFactor argument. costFactor has a default number.
     2. Returns a **hashed string**;
-  -[pwArgon2](#pwArgon2)
+  2.[pwArgon2](#pwArgon2)
     1. Takes *inputString*.
     2. Returns a **hashed string**;
-  -[compareBcrypt](#compareBcrypt)
+  3.[compareBcrypt](#compareBcrypt)
     1. Takes *inputString* and *hashedString* as arguments.
     2. Returns a **boolean**;
-  -[compareArgon2](#compareArgon2)
+  4.[compareArgon2](#compareArgon2)
     1. Takes *inputString* and *hashedString* as arguments.
     2. Returns a **boolean**;
