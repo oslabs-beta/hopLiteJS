@@ -1,5 +1,5 @@
 import { SourceMapPayload } from "node:module";
-import { HopLiteUser, HopLiteRuleset } from "../types";
+import {  HopLiteUser,HopLiteRuleset} from "../types";
 const jwt = require('jsonwebtoken');
 
 //interface for error object
@@ -23,9 +23,11 @@ class AuthenticationControllerBlueprint {
       throw new Error("Cookie not Set.")
     }
   }
-  authenticateJWT(payload: payload, secret: string, ruleset: HopLiteRuleset, res: any) {
+  authenticateJWT(ruleset: HopLiteRuleset, res: any) {
+    
     console.log('JWT is working')
     if (ruleset.jwt) {
+      const {payload, secret} = ruleset.jwt
       const token = jwt.sign(payload, secret)
       console.log(token);
       res.status(200).set({ auth: true, token: token })
