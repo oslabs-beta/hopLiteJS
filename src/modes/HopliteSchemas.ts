@@ -1,10 +1,7 @@
-
-interface Payload {
-  [key1: string]: string;
-}
+import { Payload } from '../types';
 
 class HopliteSchemasBlueprint {
-  
+
   createUser(username: string, password: string, userRole: boolean) {
     const user = {
       username,
@@ -13,14 +10,12 @@ class HopliteSchemasBlueprint {
     }
     return user;
   }
-  
-  
   createRulesetCookieJWT(cookieKey: string, secret: string, payload: Payload) { //...args: any
-  
+
     // loop through payloads and insert them as key pair values in the above object called payload
     const ruleset = {
       cookieKey: cookieKey,
-      secret : secret,
+      secret: secret,
       payload: payload
     } //{...args};
     console.log(ruleset);
@@ -42,11 +37,9 @@ class HopliteSchemasBlueprint {
     console.log(ruleset);
     return ruleset;
   }
-  
+
 }
 
 export {
   HopliteSchemasBlueprint
 }
-
-
