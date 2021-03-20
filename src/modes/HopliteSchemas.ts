@@ -1,26 +1,26 @@
 
 
-
 class HopliteSchemasBlueprint {
   createUser(username: string, password: string, userRole: boolean) {
     const user = {
       username,
       password,
       userRole
-    }
+    };
     return user;
   }
-  createRuleset(bool: boolean) { //...args: any
+
+  createRuleset(bool: boolean) { // ...args: any
     const ruleset = {
-      cookiejwt: bool
-    } //{...args};
+      cookiejwt: boolean
+    }; // {...args};
     console.log(ruleset);
     return ruleset;
   }
 
 
   /*
- createRuleset(...args: any) { 
+ createRuleset(...args: any) {
     const rules = [...args];
     console.log(rules);
 
@@ -40,6 +40,4 @@ class HopliteSchemasBlueprint {
 
 export {
   HopliteSchemasBlueprint
-}
-
-
+};
