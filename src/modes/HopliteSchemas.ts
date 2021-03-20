@@ -71,8 +71,4 @@ class HopliteSchemasBlueprint {
 
 export {
   HopliteSchemasBlueprint
-<<<<<<< HEAD
-};
-=======
 }
->>>>>>> f373ed0ad39927db7b845f4657d577dee55caf4b
