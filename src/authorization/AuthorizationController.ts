@@ -18,7 +18,7 @@ class AuthorizationControllerBlueprint {
       const token = req.headers['x-access-token'];
       if (token) {
         const verifyJWT = jwt.verify(token, secret)
-        return verifyJWT
+        return verifyJWT;
       }
     }
   }
@@ -34,7 +34,7 @@ class AuthorizationControllerBlueprint {
           jwt.verify(token, secret);
           next();
         } catch {
-          res.status(403).send("You do not have the required credentials.")
+          res.status(403).send("You do not have the required credentials.");
         }
       }
     }

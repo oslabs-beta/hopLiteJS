@@ -7,7 +7,6 @@ interface AuthenticationControllerInterface {//these interfaces represent the me
   testAuthn: any;
 }
 
-
 class AdvancedHopliteBlueprint {
   AuthnController: AuthenticationControllerInterface;
   AuthzController: AuthorizationControllerInterface;

@@ -26,7 +26,11 @@ class AuthenticationControllerBlueprint {
     if (ruleset.cookie) {
       res.cookie('role', 'Admin').send('Cookie Set.');
     } else {
+<<<<<<< HEAD
       throw new Error('Cookie not Set.');
+=======
+      throw new Error("Cookie not Set.");
+>>>>>>> f373ed0ad39927db7b845f4657d577dee55caf4b
     }
   }
   authenticateJWT(ruleset: HopLiteRuleset, res: any) {
@@ -36,9 +40,15 @@ class AuthenticationControllerBlueprint {
       const {payload, secret} = ruleset.jwt
       const token = jwt.sign(payload, secret)
       console.log(token);
+<<<<<<< HEAD
       res.status(200).set({ auth: true, token });
     } else {
       throw new Error('JWT not Set.');
+=======
+      res.status(200).set({ auth: true, token: token });
+    } else {
+      throw new Error("JWT not Set.");
+>>>>>>> f373ed0ad39927db7b845f4657d577dee55caf4b
     }
   }
 
@@ -51,11 +61,19 @@ class AuthenticationControllerBlueprint {
       // console.log(payload)
       res.cookie(cookieKey, token).send('Cookie-JWT Set.');
     } else {
+<<<<<<< HEAD
       throw new Error('Cannot set Cookie-JWT.');
+=======
+      throw new Error("Cannot set Cookie-JWT.");
+>>>>>>> f373ed0ad39927db7b845f4657d577dee55caf4b
     }
   }
 }
 
 export {
   AuthenticationControllerBlueprint
+<<<<<<< HEAD
 };
+=======
+}
+>>>>>>> f373ed0ad39927db7b845f4657d577dee55caf4b
