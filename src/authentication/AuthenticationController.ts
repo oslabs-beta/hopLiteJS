@@ -61,19 +61,11 @@ class AuthenticationControllerBlueprint {
       // console.log(payload)
       res.cookie(cookieKey, token).send('Cookie-JWT Set.');
     } else {
-<<<<<<< HEAD
-      throw new Error('Cannot set Cookie-JWT.');
-=======
       throw new Error("Cannot set Cookie-JWT.");
->>>>>>> f373ed0ad39927db7b845f4657d577dee55caf4b
     }
   }
 }
 
 export {
   AuthenticationControllerBlueprint
-<<<<<<< HEAD
-};
-=======
 }
->>>>>>> f373ed0ad39927db7b845f4657d577dee55caf4b
