@@ -1,11 +1,5 @@
-<<<<<<< HEAD
-import { SourceMapPayload } from 'node:module';
-import { HopLiteUser, HopLiteRuleset } from '../types';
-
-=======
 import { SourceMapPayload } from "node:module";
 import {  HopLiteUser,HopLiteRuleset} from "../types";
->>>>>>> 960a274fdae09f4f2f358b832ac23c85212b34b4
 const jwt = require('jsonwebtoken');
 
 // interface for error object
@@ -26,11 +20,7 @@ class AuthenticationControllerBlueprint {
     if (ruleset.cookie) {
       res.cookie('role', 'Admin').send('Cookie Set.');
     } else {
-<<<<<<< HEAD
-      throw new Error('Cookie not Set.');
-=======
       throw new Error("Cookie not Set.");
->>>>>>> f373ed0ad39927db7b845f4657d577dee55caf4b
     }
   }
   authenticateJWT(ruleset: HopLiteRuleset, res: any) {
@@ -40,15 +30,9 @@ class AuthenticationControllerBlueprint {
       const {payload, secret} = ruleset.jwt
       const token = jwt.sign(payload, secret)
       console.log(token);
-<<<<<<< HEAD
-      res.status(200).set({ auth: true, token });
-    } else {
-      throw new Error('JWT not Set.');
-=======
       res.status(200).set({ auth: true, token: token });
     } else {
       throw new Error("JWT not Set.");
->>>>>>> f373ed0ad39927db7b845f4657d577dee55caf4b
     }
   }
 
