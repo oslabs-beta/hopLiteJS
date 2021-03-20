@@ -11,10 +11,18 @@ interface CookieJWTInterface {
   secret: string;
   payload: Payload;
 }
+interface CookieInterface {
+  payload: Payload;
+  secret: string;
+}
+interface JWTInterface {
+  payload: Payload;
+  secret: string;
+}
 interface HopLiteRuleset {
-  cookiejwt: CookieJWTInterface;
-  cookie? : boolean;
-  jwt? : boolean;
+  cookiejwt?: CookieJWTInterface;
+  cookie? : CookieInterface;
+  jwt? : JWTInterface;
   bcrypt? : boolean;
   salting? : number;
   argon? : boolean;
@@ -51,4 +59,7 @@ interface HopLiteRuleset {
 export {
   HopLiteUser,
   HopLiteRuleset,
+  CookieJWTInterface,
+  CookieInterface,
+  Payload
 }
