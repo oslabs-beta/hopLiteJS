@@ -4,25 +4,32 @@ interface HopLiteUser {
   privilege: boolean;
 }
 interface Payload {
-  [key: string]: string;
+  [payloadKey: string]: string;
 }
 interface CookieJWTInterface {
   // cookieKey: string;
   // secret: string;
   // payload: Payload;
-  [key: string]: JWTInterface
+  [cookieName: string]: JWTInterface
+
 }
 interface CookieInterface {
   // cookieKey: string;
   // cookieValue: string;
-  [key: string]: string;
+  [cookieKey: string]: string;
 }
 interface JWTInterface {
   // payload: Payload;
   // secret: string;
-  [key: string]: Payload;
+  [secret: string]: Payload;
 }
+
+interface messageJSON {
+  [key:string]:string;
+}
+
 interface HopLiteRuleset {
+  message: string | messageJSON;
   cookieJWT?: CookieJWTInterface;
   cookie? : CookieInterface;
   JWT? : JWTInterface;

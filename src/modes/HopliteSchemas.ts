@@ -1,6 +1,7 @@
 import { CookieInterface, CookieJWTInterface, JWTInterface, Payload} from "../types";
 
 class HopliteSchemasBlueprint {
+  
   createRulesetCookieJWT(cookieJWTObj:CookieJWTInterface) { //...args: any
     const ruleset:any = {};
     for(let key in cookieJWTObj){

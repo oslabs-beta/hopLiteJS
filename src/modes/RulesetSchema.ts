@@ -2,6 +2,7 @@ import { CookieInterface, CookieJWTInterface, JWTInterface, Payload} from "../ty
 
 class RulesetBlueprint {
   createRuleset(...args: any[][]){
+    //['cookie', {cookieName:'hello'}]
     console.log(args)
     const ruleset:any = {}
     for(let i = 0; i < args.length; i++){

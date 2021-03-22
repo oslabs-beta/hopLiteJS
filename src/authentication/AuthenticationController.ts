@@ -40,25 +40,20 @@ class AuthenticationControllerBlueprint {
       res.set(header)
     }
     if (ruleset.cookieJWT) {
-      //{cookieName:{secret:{}}}
       const cookieJWTObj = ruleset.cookieJWT;
-      
-      for(let key in cookieJWTObj){
-        const jwt = cookieJWTObj[key]
-        console.log(jwt)  
-         for(let innerKey in jwt){
-           const token = jwt.sign(jwt[innerKey],innerKey);
+      for(let cookieName in cookieJWTObj){
+        const allJWTS = cookieJWTObj[cookieName]
+        console.log(jwt)
+         for(let secret in allJWTS){
+           const token = jwt.sign(allJWTS[secret], secret);
+           res.cookie(cookieName, token)
         }
-       
       }
-      // const { payload, secret, cookieKey } = ruleset.cookiejwt;
-      // const token = jwt.sign(payload, secret);
-      // console.log("this is our jwt", token);
-      // // console.log(payload)
-      // res.cookie(cookieKey, token).send("Cookie-JWT Set.");
-    } 
+    }
+      typeof ruleset.message === 'string' ? res.send(ruleset.message) : res.json(ruleset.message);
     //user must do their own res.send ******
   }
+
   authenticateCookie(ruleset: HopLiteRuleset, res: any) {
     // console.log('authenticate fx is working')
     // if (ruleset.cookie) {
