@@ -16,3 +16,5 @@ class Hashing {
     this.hashCreation = hashCreationFunctions;
   }
 }
+
+export default Hashing

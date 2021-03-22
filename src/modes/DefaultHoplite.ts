@@ -4,6 +4,7 @@ interface AuthorizationControllerInterface {//these interfaces represent the met
   authorize: any;
   testAuthz?: any;
 }
+
 interface AuthenticationControllerInterface {//these interfaces represent the methods attached to Authorization/Authentication controllers
   authenticate: any;
   authenticateJWT: any;

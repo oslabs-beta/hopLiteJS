@@ -23,6 +23,7 @@ class AuthenticationControllerBlueprint {
       throw new Error("Cookie not Set.");
     }
   }
+  
   authenticateJWT(ruleset: HopLiteRuleset, res: any) {
     
     console.log('JWT is working')

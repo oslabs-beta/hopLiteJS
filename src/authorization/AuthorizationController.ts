@@ -2,6 +2,7 @@ import { AuthorizationHelperMethodsBlueprint } from './AuthorizationHelperMethod
 import * as jwt from 'jsonwebtoken';
 import { HopLiteUser, HopLiteRuleset } from "../types";
 
+
 class AuthorizationControllerBlueprint {
   // testAuthz(str: string) {
   //   console.log(str);
@@ -27,16 +28,16 @@ class AuthorizationControllerBlueprint {
     return function (req: any, res: any, next: any) {
       console.log('authorizeCookieJWT is firing.');
       const cookies = req.cookies;
-      if (cookies[ruleset.cookiejwt.cookieKey]) {
-        const token = cookies[ruleset.cookiejwt.cookieKey];
-        //returns decoded token or error message
-        try {
-          jwt.verify(token, secret);
-          next();
-        } catch {
-          res.status(403).send("You do not have the required credentials.");
-        }
-      }
+      // if (cookies[ruleset.cookiejwt.cookieKey]) {
+      //   const token = cookies[ruleset.cookiejwt.cookieKey];
+      //   //returns decoded token or error message
+      //   try {
+      //     jwt.verify(token, secret);
+      //     next();
+      //   } catch {
+      //     res.status(403).send("You do not have the required credentials.");
+      //   }
+      // }
     }
   }
 }

@@ -11,13 +11,7 @@ class HopliteSchemasBlueprint {
     return user;
   }
 
-  // createRuleset(bool: boolean) { // ...args: any
-  //   const ruleset = {
-  //     cookiejwt: boolean
-  //   }; // {...args};
-  //   console.log(ruleset);
-  //   return ruleset;
-  // }
+
 
 
   /*
@@ -29,12 +23,18 @@ class HopliteSchemasBlueprint {
 
     for (let rule in ruleset){
       if (!rule) {
-        ruleset[rule] = boolean;
+        ruleset[rule] = value: any;
       }
     }
     return ruleset;
   }
 
+
+  - interface for dynamic key 
+  https://stackoverflow.com/questions/39256682/interface-for-dynamic-key-in-typescript
+interface Dic {
+    [key: string]: Object[]
+}
 */
 
   

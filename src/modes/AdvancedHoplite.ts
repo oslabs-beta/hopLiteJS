@@ -15,3 +15,5 @@ class AdvancedHopliteBlueprint {
     this.AuthzController = AuthorizationController;
   }
 }
+ 
+export AdvancedHopliteBlueprint;
