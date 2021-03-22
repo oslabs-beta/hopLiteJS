@@ -1,6 +1,7 @@
-import { AuthorizationHelperMethodsBlueprint } from './AuthorizationHelperMethods';
 import * as jwt from 'jsonwebtoken';
 import { HopLiteUser, HopLiteRuleset } from "../types";
+import { AuthorizationHelperMethodsBlueprint } from './AuthorizationHelperMethods';
+
 
 
 class AuthorizationControllerBlueprint {
