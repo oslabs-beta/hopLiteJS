@@ -10,7 +10,7 @@ interface CookieJWTInterface {
   // cookieKey: string;
   // secret: string;
   // payload: Payload;
-  [cookieKey: string]: JWTInterface
+  [key: string]: JWTInterface
 }
 interface CookieInterface {
   // cookieKey: string;
@@ -23,7 +23,7 @@ interface JWTInterface {
   [key: string]: Payload;
 }
 interface HopLiteRuleset {
-  cookiejwt?: CookieJWTInterface;
+  cookieJWT?: CookieJWTInterface;
   cookie? : CookieInterface;
   JWT? : JWTInterface;
   bcrypt? : boolean;

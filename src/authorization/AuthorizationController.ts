@@ -3,25 +3,43 @@ import * as jwt from 'jsonwebtoken';
 import { HopLiteUser, HopLiteRuleset } from "../types";
 
 class AuthorizationControllerBlueprint {
-  // testAuthz(str: string) {
-  //   console.log(str);
-  // }
+  authorize(ruleset: HopLiteRuleset, req:any){
+    let authorize = true;
+     //if ruleset is empty or is never inputted, authorize becomes false
+    if(arguments.length === 0) authorize = false;
+    const objKey = Object.keys(ruleset)
+    if(objKey.length === 0) authorize= false; 
+      if(ruleset.cookie){
+        const savedCookie = ruleset.cookie;
+        const currentCookie = req.cookies
+        for(let key in savedCookie){
+          if(savedCookie[key] !== currentCookie[key]) authorize = false;
+        }
+      }
+      if(ruleset.JWT){
+        
+      }
+      if(ruleset.cookieJWT){
+        
+      }
+    }
+  
 
-  // authorizeCookie(req: Request, res: Response, next: any) { //these are the methods that the developer using our software invoke
-  //   console.log('authorizeCookie is firing.');
-  //   AuthorizationHelperMethodsBlueprint.hasRole(req, res, next);
-  // }
+  authorizeCookie(req: Request, res: Response, next: any) { //these are the methods that the developer using our software invoke
+    console.log('authorizeCookie is firing.');
+    AuthorizationHelperMethodsBlueprint.hasRole(req, res, next);
+  }
 
-  // authorizeJWT(secret: string) {
-  //   return function (req: any, res: any, next: any) {
-  //     console.log('authorizeJWT is firing.');
-  //     const token = req.headers['x-access-token'];
-  //     if (token) {
-  //       const verifyJWT = jwt.verify(token, secret)
-  //       return verifyJWT
-  //     }
-  //   }
-  // }
+  authorizeJWT(secret: string) {
+    return function (req: any, res: any, next: any) {
+      console.log('authorizeJWT is firing.');
+      const token = req.headers['x-access-token'];
+      if (token) {
+        const verifyJWT = jwt.verify(token, secret)
+        return verifyJWT
+      }
+    }
+  }
 
   // authorize(ruleset: HopLiteRuleset, secret: string) {
   //   return function (req: any, res: any, next: any) {
