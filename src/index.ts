@@ -2,16 +2,17 @@ import DefaultHopliteBlueprint  from './modes/DefaultHoplite';
 import { AuthorizationControllerBlueprint } from './authorization/AuthorizationController';
 import { AuthenticationControllerBlueprint } from './authentication/AuthenticationController';
 import { HopliteSchemasBlueprint } from './modes/HopliteSchemas';
-
+import { RulesetBlueprint } from './modes/RulesetSchema';
 const AuthorizationController = new AuthorizationControllerBlueprint();
 const AuthenticationController = new AuthenticationControllerBlueprint();
 
-const DefaultHoplite = new DefaultHopliteBlueprint(AuthorizationController, AuthenticationController);
+//const DefaultHoplite = new DefaultHopliteBlueprint(AuthorizationController, AuthenticationController);
 const HopliteSchemas = new HopliteSchemasBlueprint();
-
+const RulesetSchema = new RulesetBlueprint();
 export {
-  DefaultHoplite,
-  HopliteSchemas
+  //DefaultHoplite,
+  HopliteSchemas,
+  RulesetSchema
 };
 
 
