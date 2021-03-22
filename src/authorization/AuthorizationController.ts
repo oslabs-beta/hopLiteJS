@@ -36,7 +36,7 @@ class AuthorizationControllerBlueprint {
       const token = req.headers['x-access-token'];
       if (token) {
         const verifyJWT = jwt.verify(token, secret)
-        return verifyJWT
+        return verifyJWT;
       }
     }
   }

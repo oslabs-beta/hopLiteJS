@@ -96,5 +96,3 @@ class AuthenticationControllerBlueprint {
 export {
   AuthenticationControllerBlueprint
 }
-
-
