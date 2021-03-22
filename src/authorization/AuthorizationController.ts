@@ -27,8 +27,9 @@ class AuthorizationControllerBlueprint {
     return function (req: any, res: any, next: any) {
       console.log('authorizeCookieJWT is firing.');
       const cookies = req.cookies;
-      if (cookies[ruleset.cookiejwt.cookieKey]) {
-        const token = cookies[ruleset.cookiejwt.cookieKey];
+      const cookieName : string = "";
+      if (cookies[ruleset.cookiejwt?.cookieKey ?? cookieName]) {
+        const token = cookies[ruleset.cookiejwt?.cookieKey ?? cookieName];
         //returns decoded token or error message
         try {
           jwt.verify(token, secret);

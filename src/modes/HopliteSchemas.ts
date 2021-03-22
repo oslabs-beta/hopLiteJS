@@ -37,7 +37,6 @@ class HopliteSchemasBlueprint {
     console.log(ruleset);
     return ruleset;
   }
-
 }
 
 export {
