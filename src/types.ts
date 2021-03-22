@@ -7,20 +7,13 @@ interface Payload {
   [payloadKey: string]: string;
 }
 interface CookieJWTInterface {
-  // cookieKey: string;
-  // secret: string;
-  // payload: Payload;
   [cookieName: string]: JWTInterface
 
 }
 interface CookieInterface {
-  // cookieKey: string;
-  // cookieValue: string;
   [cookieKey: string]: string;
 }
 interface JWTInterface {
-  // payload: Payload;
-  // secret: string;
   [secret: string]: Payload;
 }
 
@@ -55,5 +48,6 @@ export {
   CookieJWTInterface,
   CookieInterface,
   Payload,
-  JWTInterface
+  JWTInterface,
+  messageJSON
 }

@@ -1,14 +1,12 @@
-import { CookieInterface, CookieJWTInterface, JWTInterface, Payload} from "../types";
+import { messageJSON} from "../types";
 
 class RulesetBlueprint {
-  createRuleset(...args: any[][]){
-    //['cookie', {cookieName:'hello'}]
-    console.log(args)
+  createRuleset(message:string | messageJSON, ...args: any[][]){
     const ruleset:any = {}
     for(let i = 0; i < args.length; i++){
-      // console.log(args[i][0])
       ruleset[args[i][0]] = args[i][1];
     }
+    ruleset.message = message
     return ruleset;
   }
 }

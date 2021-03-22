@@ -6,11 +6,11 @@ import { RulesetBlueprint } from './modes/RulesetSchema';
 const AuthorizationController = new AuthorizationControllerBlueprint();
 const AuthenticationController = new AuthenticationControllerBlueprint();
 
-//const DefaultHoplite = new DefaultHopliteBlueprint(AuthorizationController, AuthenticationController);
+const DefaultHoplite = new DefaultHopliteBlueprint(AuthorizationController, AuthenticationController);
 const HopliteSchemas = new HopliteSchemasBlueprint();
 const RulesetSchema = new RulesetBlueprint();
 export {
-  //DefaultHoplite,
+  DefaultHoplite,
   HopliteSchemas,
   RulesetSchema
 };

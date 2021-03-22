@@ -6,9 +6,6 @@ interface AuthorizationControllerInterface {//these interfaces represent the met
 }
 interface AuthenticationControllerInterface {//these interfaces represent the methods attached to Authorization/Authentication controllers
   authenticate: any;
-  authenticateJWT: any;
-  authenticateCookie: any;
-  testAuthn?: any;
 }
 
 class DefaultHopliteBlueprint {
