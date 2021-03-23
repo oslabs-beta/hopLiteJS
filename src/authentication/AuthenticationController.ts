@@ -23,6 +23,7 @@ class AuthenticationControllerBlueprint {
         //eg. header = {auth:true, token1:'something', token2:'something else'}
         header[tokenString] = token;
       }
+      console.log(JSON.stringify(header))
       //adding header obj to the header in res obj
       res.set('x-access-token',header)
     }
