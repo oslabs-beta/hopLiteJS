@@ -1,46 +1,72 @@
-import { HopLiteRuleset} from "../types";
+import { HopLiteRuleset } from "../types";
 const jwt = require('jsonwebtoken');
 
 class AuthenticationControllerBlueprint {
-  authenticate(ruleset: HopLiteRuleset, res:any){
+  authenticate(ruleset: HopLiteRuleset, res: any) {
+    const defaultOptions = {
+      httpOnly: true,
+      secure: true, //with this option, you will not see it in Postman. Keep this in mind.
+      maxAge: 1209600000,
+      sameSite: "lax"
+    };
     if (ruleset.cookie) {
-      const cookieObj = ruleset.cookie;
-      for(let key in cookieObj){
-        res.cookie(key,cookieObj[key]);
-      }
-    }
-    if (ruleset.JWT) {
-      const JWTObj = ruleset.JWT;
-      const header:any = {auth:true};
-      let tokenNumber = 1;
-      for(let key in JWTObj){
-        let tokenString = ['token'];
-        //eg. tokenString[0] becomes 'token1'
-        tokenString[0] += tokenNumber;
-        tokenNumber++;
-        //jwt.sign sign and payload
-        const token = jwt.sign(JWTObj[key],key);
-        //eg. header = {auth:true, token1:'something', token2:'something else'}
-        header[tokenString[0]] = token;
-      }
-      //adding header obj to the header in res obj
-      res.set(header)
-    }
-    if (ruleset.cookieJWT) {
-      const cookieJWTObj = ruleset.cookieJWT;
-      for(let cookieName in cookieJWTObj){
-        const allJWTS = cookieJWTObj[cookieName]
-        console.log(jwt)
-         for(let secret in allJWTS){
-           const token = jwt.sign(allJWTS[secret], secret);
-           res.cookie(cookieName, token)
+      let userOptions;
+      const cookieList = ruleset.cookie.cookies;
+      if (ruleset.cookie.options) {
+        userOptions = ruleset.cookie.options;
+        for (let key in cookieList) {
+          console.log("Useroptions exist: ", userOptions)
+          res.cookie(key, cookieList[key], userOptions);
+        }
+      } else {
+        for (let key in cookieList) {
+          console.log("defaultoptions exist: ", defaultOptions)
+          res.cookie(key, cookieList[key], defaultOptions);
         }
       }
     }
-      typeof ruleset.message === 'string' ? res.send(ruleset.message) : res.json(ruleset.message);
-  
+    if (ruleset.cookieJWT) {
+      const jwtList = ruleset.cookieJWT;
+      for (let cookieName in jwtList) {
+        const clientSecret = ruleset.cookieJWT[cookieName].secret;
+        const token = jwt.sign(jwtList[cookieName], clientSecret);
+        res.cookie(cookieName, token, defaultOptions);
+      }
+    }
+    // if (ruleset.JWT) {
+    //   const JWTObj = ruleset.JWT;
+    //   const header: any = {
+    //     auth: true,
+    //     'x-access-token': {}
+    //   };
+    //   /*
+    //   Ruleset.cookieJWT = {
+    //     cookieName: {
+    //       secret: kjasdhkjasd,
+    //       payload: {
+    //         key: "value"
+    //       }
+    //     }
+    //   }
+    //   */
+    //   // let tokenNumber = 1;
+    //   for (let jwtName in JWTObj) {
+    //     let tokenString = ['token'];
+    //     //eg. tokenString[0] becomes 'token1'
+    //     tokenString[0] += tokenNumber;
+    //     tokenNumber++;
+    //     //jwt.sign sign and payload
+    //     const token = jwt.sign(JWTObj.payloads[jwtName], JWTObj.secret);
+    //     //eg. header = {auth:true, token1:'something', token2:'something else'}
+    //     header['x-access-token'][tokenString[0]] = token;
+    //   }
+    //   //adding header obj to the header in res obj
+    //   res.set(header)
+    // }
+    typeof ruleset.message === 'string' ? res.status(200).send(ruleset.message) : res.status(200).json(ruleset.message);
+
   }
- }
+}
 
 export {
   AuthenticationControllerBlueprint

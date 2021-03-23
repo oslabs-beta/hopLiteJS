@@ -3,27 +3,38 @@ import * as jwt from 'jsonwebtoken';
 import { HopLiteUser, HopLiteRuleset } from "../types";
 
 class AuthorizationControllerBlueprint {
-  authorize(ruleset: HopLiteRuleset, req:any){
-    let authorize = true;
-     //if ruleset is empty or is never inputted, authorize becomes false
-    if(arguments.length === 0) authorize = false;
-    const objKey = Object.keys(ruleset)
-    if(objKey.length === 0) authorize= false; 
-      if(ruleset.cookie){
-        const savedCookie = ruleset.cookie;
-        const currentCookie = req.cookies
-        for(let key in savedCookie){
-          if(savedCookie[key] !== currentCookie[key]) authorize = false;
+  authorize(ruleset: HopLiteRuleset) {
+    console.log("Authorize is firing.");
+    return function (req: any, res: any, next: any) {
+      const cookies = req.cookies;
+      if (ruleset.cookieJWT) {
+        for (let cookieName in ruleset.cookieJWT) {
+          const existingCookieJWT = cookies[cookieName];
+          const clientSecret = ruleset.cookieJWT[cookieName].secret;
+          try {
+            jwt.verify(existingCookieJWT, clientSecret);
+          } catch (err) {
+            console.log(err);
+            res.status(403).send("You do not have access to this resource.");
+          }
         }
+        next();
+      } else if (ruleset.cookie) {
+        const cookieList = ruleset.cookie.cookies;
+        for (let cookieName in cookieList) {
+          if (cookies[cookieName] !== cookieList[cookieName]) {
+            console.log("Failed.");
+            return res.status(403).send("You do not have access to this resource.");
+          }
+        }
+        console.log("Succeeded");
+        next();
       }
-      if(ruleset.JWT){
-        
-      }
-      if(ruleset.cookieJWT){
-        
+      else if (ruleset.JWT) {
+        console.log("JWT: ", ruleset.JWT)
       }
     }
-  
+  }
 
   authorizeCookie(req: Request, res: Response, next: any) { //these are the methods that the developer using our software invoke
     console.log('authorizeCookie is firing.');

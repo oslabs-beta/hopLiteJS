@@ -3,36 +3,61 @@ interface HopLiteUser {
   password?: string;
   privilege: boolean;
 }
+
+
+interface MessageJSON {
+  [key: string]: string;
+}
+
+interface CookieOptions {
+  domain?: string;
+  encode?: () => {};
+  expires?: Date;
+  maxAge?: number;
+  httponly?: boolean;
+  path?: string;
+  secure?: boolean;
+  signed?: boolean;
+  sameSite?: boolean | string;
+}
+interface Cookies {
+  [cookieKey: string]: string;
+}
+interface CookieConfig {
+  options?: CookieOptions;
+  cookies: Cookies;
+}
+// interface JWTInterface {
+//   [name: string]: Payload;
+//   secret: string;
+// }
 interface Payload {
   [payloadKey: string]: string;
 }
-interface CookieJWTInterface {
-  [cookieName: string]: JWTInterface
+interface JWTConfig {
+  [key: string]: JWT;
+}
+// secret: string;
+// payloads: JWTPayloads;
+interface JWT {
+  secret: string;
+  payload: Payload;
+  options?: CookieOptions;
+}
 
-}
-interface CookieInterface {
-  [cookieKey: string]: string;
-}
-interface JWTInterface {
-  [secret: string]: Payload;
-}
-
-interface messageJSON {
-  [key:string]:string;
-}
 
 interface HopLiteRuleset {
-  message: string | messageJSON;
-  cookieJWT?: CookieJWTInterface;
-  cookie? : CookieInterface;
-  JWT? : JWTInterface;
-  bcrypt? : boolean;
-  salting? : number;
-  argon? : boolean;
-  bearerToken? : boolean;
-  securityKey? : boolean;
+  message: string | MessageJSON;
+  cookieJWT?: JWTConfig;
+  cookie?: CookieConfig;
+  JWT?: JWTConfig;
+  bcrypt?: boolean;
+  salting?: number;
+  argon?: boolean;
+  bearerToken?: boolean;
+  securityKey?: boolean;
   Oauth?: boolean;
-  mfa? : boolean;
+  mfa?: boolean;
   digest?: boolean;
   apiKey?: boolean;
   awsSignature?: boolean;
@@ -45,9 +70,10 @@ interface HopLiteRuleset {
 export {
   HopLiteUser,
   HopLiteRuleset,
-  CookieJWTInterface,
-  CookieInterface,
+  Cookies,
+  CookieOptions,
+  CookieConfig,
   Payload,
-  JWTInterface,
-  messageJSON
+  JWTConfig,
+  MessageJSON
 }
