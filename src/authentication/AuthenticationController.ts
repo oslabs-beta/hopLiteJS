@@ -13,15 +13,15 @@ class AuthenticationControllerBlueprint {
       const JWTObj = ruleset.JWT;
       const header:any = {auth:true};
       let tokenNumber = 1;
-      for(let key in JWTObj){
-        let tokenString = ['token'];
+      for(let secret in JWTObj){
+        let tokenString = 'token';
         //eg. tokenString[0] becomes 'token1'
-        tokenString[0] += tokenNumber;
+        tokenString += tokenNumber;
         tokenNumber++;
         //jwt.sign sign and payload
-        const token = jwt.sign(JWTObj[key],key);
+        const token = jwt.sign(JWTObj[secret],secret);
         //eg. header = {auth:true, token1:'something', token2:'something else'}
-        header[tokenString[0]] = token;
+        header[tokenString] = token;
       }
       //adding header obj to the header in res obj
       res.set('x-access-token',header)

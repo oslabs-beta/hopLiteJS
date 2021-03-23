@@ -4,22 +4,22 @@ class HopliteSchemasBlueprint {
   
   createRulesetCookieJWT(cookieJWTObj:CookieJWTInterface) { //...args: any
     const ruleset:any = {};
-    for(let key in cookieJWTObj){
-      ruleset[key] = cookieJWTObj[key];
+    for(let cookieKey in cookieJWTObj){
+      ruleset[cookieKey] = cookieJWTObj[cookieKey];
     }
     return ['cookieJWT',ruleset];
   }
   createRulesetCookie(cookieObj:CookieInterface) { 
     const ruleset:any = {};
-    for(let key in cookieObj){
-      ruleset[key] = cookieObj[key];
+    for(let cookieKey in cookieObj){
+      ruleset[cookieKey] = cookieObj[cookieKey];
     }
     return ['cookie',ruleset];
  }
   createRulesetJWT(JWTObj:JWTInterface) { 
     const ruleset:any = {};
-    for(let key in JWTObj ){
-      ruleset[key] = JWTObj[key];
+    for(let secret in JWTObj ){
+      ruleset[secret] = JWTObj[secret];
     }
     return ['JWT',ruleset];
   }

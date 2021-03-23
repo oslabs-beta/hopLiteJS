@@ -25,9 +25,10 @@ class AuthorizationControllerBlueprint {
     return function (ruleset: HopLiteRuleset) {
       let authorize = true;
       //if ruleset is empty or is never inputted, authorize becomes false
-     if(arguments.length === 0) authorize = false;
-     const objKey = Object.keys(ruleset)
-     if(objKey.length === 0) authorize= false; 
+      if(arguments.length === 0) authorize = false;
+      const objKey = Object.keys(ruleset)
+      if(objKey.length === 0) authorize= false; 
+
        if(ruleset.cookie){
          const rulesetCookie = ruleset.cookie;
          const userCookie = req.cookies
@@ -35,18 +36,42 @@ class AuthorizationControllerBlueprint {
            if(userCookie[cookieKey] !== rulesetCookie[cookieKey]) authorize = false;
          }
        }
+
        if(ruleset.JWT){
+        const rulesetJWT= ruleset.JWT;
         const tokens = req.headers['x-access-token'];
+        let tokenString = 'token';
+        let tokenCount = 1;
+        
         if (tokens) {
-          for(let individualToken in tokens){
-            const verifyToken = jwt.verify()
+          for(let secret in rulesetJWT){
+            tokenString += tokenCount;
+            tokenCount++;
+            const rulesetPayload = rulesetJWT[secret];
+            const tokenPayload:any = jwt.verify(tokenString,secret);
+            
+            for(let payloadKey in tokenPayload){
+              if(tokenPayload[payloadKey] !== rulesetPayload[payloadKey]) authorize = false;
+            }  
           }
-          const verifyJWT = jwt.verify(token, secret)
-          return verifyJWT;
+        }  
+       } else {
+         authorize = false;
        }
+      
        if(ruleset.cookieJWT){
-         
+         const rulesetCookieJWTObj = ruleset.cookieJWT;
+         const userCookieJWTObj = req.cookies
+         for(let cookieName in rulesetCookieJWTObj){
+           const allJWTS = rulesetCookieJWTObj[cookieName]
+           for(let secret in allJWTS){
+            const rulesetToken = jwt.sign(allJWTS[secret], secret);
+            const userToken = userCookieJWTObj[cookieName];
+            if(rulesetToken !== userToken) authorize = false;
+           }
+         }
        }
+       if(authorize) next();
     }
   }
   
@@ -59,6 +84,7 @@ class AuthorizationControllerBlueprint {
 
   authorizeJWT(secret: string) {
     return function (req: any, res: any, next: any) {
+      
       console.log('authorizeJWT is firing.');
       const token = req.headers['x-access-token'];
       if (token) {
