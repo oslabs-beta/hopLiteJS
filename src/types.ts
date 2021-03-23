@@ -3,33 +3,61 @@ interface HopLiteUser {
   password?: string;
   privilege: boolean;
 }
+
+
+interface MessageJSON {
+  [key: string]: string;
+}
+
+interface CookieOptions {
+  domain?: string;
+  encode?: () => {};
+  expires?: Date;
+  maxAge?: number;
+  httponly?: boolean;
+  path?: string;
+  secure?: boolean;
+  signed?: boolean;
+  sameSite?: boolean | string;
+}
+interface Cookies {
+  [cookieKey: string]: string;
+}
+interface CookieConfig {
+  options?: CookieOptions;
+  cookies: Cookies;
+}
+// interface JWTInterface {
+//   [name: string]: Payload;
+//   secret: string;
+// }
 interface Payload {
-  [key1: string]: string;
+  [payloadKey: string]: string;
 }
-interface CookieJWTInterface {
-  cookieKey: string;
+interface JWTConfig {
+  [key: string]: JWT;
+}
+// secret: string;
+// payloads: JWTPayloads;
+interface JWT {
   secret: string;
   payload: Payload;
+  options?: CookieOptions;
 }
-interface CookieInterface {
-  payload: Payload;
-  secret: string;
-}
-interface JWTInterface {
-  payload: Payload;
-  secret: string;
-}
+
+
 interface HopLiteRuleset {
-  cookiejwt?: CookieJWTInterface;
-  cookie? : CookieInterface;
-  jwt? : JWTInterface;
-  bcrypt? : boolean;
-  salting? : number;
-  argon? : boolean;
-  bearerToken? : boolean;
-  securityKey? : boolean;
+  message: string | MessageJSON;
+  cookieJWT?: JWTConfig;
+  cookie?: CookieConfig;
+  JWT?: JWTConfig;
+  bcrypt?: boolean;
+  salting?: number;
+  argon?: boolean;
+  bearerToken?: boolean;
+  securityKey?: boolean;
   Oauth?: boolean;
-  mfa? : boolean;
+  mfa?: boolean;
   digest?: boolean;
   apiKey?: boolean;
   awsSignature?: boolean;
@@ -38,28 +66,14 @@ interface HopLiteRuleset {
   hawk?: boolean;
 }
 
-/*
-{
-  cookiejwt: {
-    cookiekey: name,
-    secret: string,
-    payload: {
-      userKey1: someVal,
-      userKey2: someVal,
-      userKey3: someVal,
-      userKey4: someVal,
-      userKey5: someVal,
-    }
-
-  }
-}
-*/
-
 
 export {
   HopLiteUser,
   HopLiteRuleset,
-  CookieJWTInterface,
-  CookieInterface,
-  Payload
+  Cookies,
+  CookieOptions,
+  CookieConfig,
+  Payload,
+  JWTConfig,
+  MessageJSON
 }

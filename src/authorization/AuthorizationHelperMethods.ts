@@ -17,6 +17,9 @@ class AuthorizationHelperMethodsBlueprint {
         res.status(403).send('Authorized');
       }
   }
+  bearerToken(req: any, res: any, next: any) {
+    
+  }
 }
 export {
   AuthorizationHelperMethodsBlueprint

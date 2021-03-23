@@ -1,42 +1,38 @@
-import { Payload } from '../types';
-
+import { Cookies, CookieOptions, CookieConfig, JWTConfig, MessageJSON, HopLiteRuleset } from "../types";
+import { } from "../types";
 class HopliteSchemasBlueprint {
-
-  createUser(username: string, password: string, userRole: boolean) {
-    const user = {
-      username,
-      password,
-      userRole
+  createRuleset(message: string | MessageJSON, ...args: [string, number][]): HopLiteRuleset {
+    const ruleset: any = {};
+    console.log(args)
+    for (let i = 0; i < args.length; i++) {
+      ruleset[args[i][0]] = args[i][1];
     }
-    return user;
-  }
-  createRulesetCookieJWT(cookieKey: string, secret: string, payload: Payload) { //...args: any
-
-    // loop through payloads and insert them as key pair values in the above object called payload
-    const ruleset = {
-      cookieKey: cookieKey,
-      secret: secret,
-      payload: payload
-    } //{...args};
-    console.log(ruleset);
+    ruleset.message = message;
     return ruleset;
   }
-  createRulesetCookie(cookieKey: string, cookieValue: string) { //...args: any
-    const ruleset = {
-      cookieKey: cookieKey,
-      cookieValue: cookieValue
-    } //{...args};
-    console.log(ruleset);
-    return ruleset;
+  createRulesetCookieJWT(cookieJWTObj: JWTConfig) { //...args: any
+    const ruleset: any = {};
+    console.log(cookieJWTObj)
+    for (let cookieName in cookieJWTObj) {
+      ruleset[cookieName] = cookieJWTObj[cookieName];
+    }
+    return ['cookieJWT', ruleset];
   }
-  createRulesetJWT(payload: Payload, secret: string) { //...args: any
-    const ruleset = {
-      payload: payload,
-      secret: secret
-    } //{...args};
-    console.log(ruleset);
-    return ruleset;
+  createRulesetCookie(cookies: Cookies, cookieOptions?: CookieOptions) {
+    const ruleset: any = {};
+    if(cookieOptions) {
+      ruleset['options'] = cookieOptions;
+    }
+    ruleset['cookies'] = cookies;
+    return ['cookie', ruleset];
   }
+  // createRulesetJWT(JWTObj: JWTConfig) {
+  //   const ruleset: any = {};
+  //   for (let key in JWTObj) {
+  //     ruleset[key] = JWTObj[key];
+  //   }
+  //   return ['JWT', ruleset];
+  // }
 }
 
 export {
