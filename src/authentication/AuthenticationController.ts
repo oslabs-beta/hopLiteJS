@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 class AuthenticationControllerBlueprint {
   authenticate(ruleset: HopLiteRuleset, res:any){
     if (ruleset.cookie) {
+      console.log('authentication cookie is working')
       const cookieObj = ruleset.cookie;
       for(let key in cookieObj){
         res.cookie(key,cookieObj[key]);
