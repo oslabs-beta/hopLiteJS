@@ -2,27 +2,54 @@ import { AuthorizationHelperMethodsBlueprint } from './AuthorizationHelperMethod
 import * as jwt from 'jsonwebtoken';
 import { HopLiteUser, HopLiteRuleset } from "../types";
 
+/*
+authentication:
+app.post('/test', (req,res)=>{authenticate(ruleset)})
+
+app.post('/test',(req,res,next)=>{authorization(ruleset)}, (req,res)=>{
+   
+   
+},
+
+authorization:
+app.post('/test',(req,res,next)=>{
+   authorization(ruleset,req,next)
+   
+}, databaseController, databaseController2, (req,res)=>{
+  
+})
+*/
+
 class AuthorizationControllerBlueprint {
-  authorize(ruleset: HopLiteRuleset, req:any){
-    let authorize = true;
-     //if ruleset is empty or is never inputted, authorize becomes false
-    if(arguments.length === 0) authorize = false;
-    const objKey = Object.keys(ruleset)
-    if(objKey.length === 0) authorize= false; 
-      if(ruleset.cookie){
-        const savedCookie = ruleset.cookie;
-        const currentCookie = req.cookies
-        for(let key in savedCookie){
-          if(savedCookie[key] !== currentCookie[key]) authorize = false;
-        }
-      }
-      if(ruleset.JWT){
-        
-      }
-      if(ruleset.cookieJWT){
-        
-      }
+  authorize(req: any, res: any, next: any) {
+    return function (ruleset: HopLiteRuleset) {
+      let authorize = true;
+      //if ruleset is empty or is never inputted, authorize becomes false
+     if(arguments.length === 0) authorize = false;
+     const objKey = Object.keys(ruleset)
+     if(objKey.length === 0) authorize= false; 
+       if(ruleset.cookie){
+         const rulesetCookie = ruleset.cookie;
+         const userCookie = req.cookies
+         for(let cookieKey in rulesetCookie){
+           if(userCookie[cookieKey] !== rulesetCookie[cookieKey]) authorize = false;
+         }
+       }
+       if(ruleset.JWT){
+        const tokens = req.headers['x-access-token'];
+        if (tokens) {
+          for(let individualToken in tokens){
+            const verifyToken = jwt.verify()
+          }
+          const verifyJWT = jwt.verify(token, secret)
+          return verifyJWT;
+       }
+       if(ruleset.cookieJWT){
+         
+       }
     }
+  }
+  
   
 
   authorizeCookie(req: Request, res: Response, next: any) { //these are the methods that the developer using our software invoke

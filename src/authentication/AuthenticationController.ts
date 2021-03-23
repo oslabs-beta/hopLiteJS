@@ -24,7 +24,7 @@ class AuthenticationControllerBlueprint {
         header[tokenString[0]] = token;
       }
       //adding header obj to the header in res obj
-      res.set(header)
+      res.set('x-access-token',header)
     }
     if (ruleset.cookieJWT) {
       const cookieJWTObj = ruleset.cookieJWT;
