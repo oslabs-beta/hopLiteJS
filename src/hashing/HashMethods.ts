@@ -10,8 +10,8 @@ class HashingMethodsBlueprint {
     console.log('bcrypt input hashing works!');
     return await bcrypt.hash(inputPassword, salt);
   }
-  async compareArgon2(hashedPassword: string, password: string) {
-    return await argon2.verify(hashedPassword, password);
+  async compareArgon2(inputPassword: string, hashedPassword: string) {
+    return await argon2.verify(hashedPassword, inputPassword);
   }
   
   async compared(inputPassword: string, hashedPassword: string) {
