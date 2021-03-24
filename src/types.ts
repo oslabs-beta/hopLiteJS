@@ -1,3 +1,5 @@
+import { createSecretKey } from "node:crypto";
+
 interface HopLiteUser {
   username: string;
   password?: string;
@@ -14,7 +16,7 @@ interface CookieOptions {
   encode?: () => {};
   expires?: Date;
   maxAge?: number;
-  httponly?: boolean;
+  httpOnly?: boolean;
   path?: string;
   secure?: boolean;
   signed?: boolean;
@@ -34,17 +36,17 @@ interface CookieConfig {
 interface Payload {
   [payloadKey: string]: string;
 }
+
 interface JWTConfig {
   [key: string]: JWT;
 }
 // secret: string;
 // payloads: JWTPayloads;
 interface JWT {
+  options?: CookieOptions
   secret: string;
   payload: Payload;
-  options?: CookieOptions;
 }
-
 
 interface HopLiteRuleset {
   message: string | MessageJSON;
@@ -73,7 +75,7 @@ export {
   Cookies,
   CookieOptions,
   CookieConfig,
-  Payload,
   JWTConfig,
+  Payload,
   MessageJSON
 }
