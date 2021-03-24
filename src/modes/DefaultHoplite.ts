@@ -1,19 +1,9 @@
-interface AuthorizationControllerInterface {//these interfaces represent the methods attached to Authorization/Authentication controllers
-  authorizeCookie: any;
-  authorizeJWT: any;
-  authorize: any;
-  testAuthz?: any;
-}
-interface AuthenticationControllerInterface {//these interfaces represent the methods attached to Authorization/Authentication controllers
-  authenticate: any;
-}
-
 class DefaultHopliteBlueprint {
-  AuthnController: AuthenticationControllerInterface;
-  AuthzController: AuthorizationControllerInterface;
-  constructor(AuthorizationController: AuthorizationControllerInterface, AuthenticationController: AuthenticationControllerInterface) {
-    this.AuthnController = AuthenticationController;
-    this.AuthzController = AuthorizationController;
+  authenticate: AuthenticationControllerInterface;
+  authorize: AuthorizationControllerInterface;
+  constructor(authenticate: any, authorize: any) {
+    this.authenticate = authenticate;
+    this.authorize = authorize;
   }
   test(str: string) {
     console.log(str);
