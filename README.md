@@ -1,28 +1,64 @@
 Welcome to **hopLiteJS**!
-hopLiteJS is a developer friendly lightweight middleware library for Node.js. hopLiteJS can be imported and used in any Express-based web application. 
-It has multiple developer interfaces for customizing authentication and authorization. With hopLiteJS, developers no longer have to dread authentication, authorization and hashing. 
+hopLiteJS was created in 2021 with the vision to be a developer friendly lightweight middleware library for Node.js. hopLiteJS can be imported and used in any Express-based web application. It has multiple developer interfaces for customizing authentication and authorization. With hopLiteJS, developers no longer have to dread authentication, authorization and hashing. 
+
+In ancient history, the hoplites were some of the fiercest warriors. They showed fortitude and resilience when outnumbered because their mission was to protect what was important to them. Today as developers we often find ourselves outnumbered by online hackers. However, we at hopeLiteJS is here to help protect you, as you are important to us.
 
 
-COOKIES
-The developer is able to add custom cookies by first utilizing the createRulesetCookie method. This method can be used alongside any other ruleset-creating methods in hopLiteJS (eg. createRulesetCookieJWT). 
-The parameters of the method are cookies (object) and optional cookieOptions (object). The developer is required to first create the data for these parameters. Each key-value pair in the cookies object are individual cookies where
-the keys are cookie names and values are cookie data. Each key-value pair in the optional cookie options object consists optional security measures such as domain, encode, etc. (shown below). If the option parameter is not inputted, default options will be applied.
+### Installation Guide
+In the terminal type the following command :
+```
+npm install hopLiteJS
+```
+
+## Getting Started
+
+1. Import hopLiteJS using the following code : 
+```js
+ import HopliteSchemas from 'hopLiteJS';
+```
+2. Import DefaultHopLite :
+Inside the file type - 
+```js
+const { DefaultHoplite } = require('hopLiteJS');
+```
+3. Import Authenticate and Authorize :
+Inside the file type - 
+```js
+const { authenticate, authorize } = DefaultHoplite;
+```
+4. Import HopLiteSchemas : 
+Inside the file type - 
+```js
+const { HopliteSchemas } = require('hopLiteJS');
+```
+5. Import Rulesets :
+Inside the file type - 
+```js
+const { createRuleset, createRulesetCookieJWT, createRulesetCookie } = HopliteSchemas;
+```
+## Data Flow
+![hopLite Data Flow](https://ibb.co/L6WYhCg)
+
+## INDIVIDUAL RULESET: COOKIES
+
+The developer is able to add custom cookies by first utilizing the createRulesetCookie method in order to create a cookieRuleset. This method can be used alongside any other ruleset-creating methods in hopLiteJS (eg. createRulesetCookieJWT).
+
+The parameters of the method are cookies (object) and optional cookieOptions (object). The developer is required to first create the data for these parameters. Each key-value pair in the cookies object are individual cookies where the keys are cookie names and values are cookie data. Each key-value pair in the cookie options object consists of security measures to choose from such as domain, encode, etc. (shown below). If the option parameter is not inputted, default options will be applied, the cookie options object itself is also optional. If there is no cookie option argument set by the developer the cookie option argument will be changed into defaultOptions shown below.
 
 Cookie:
+![Cookie Options](https://ibb.co/9h0Gtyv)
 
-Options:
-domain (string), encode (function), expires (date), maxAge (number), httponly (boolean), path (string), secure (boolean), signed (boolean), sameSite (boolean or string)
-
-Default Options:
+Default Cookie Option:
+```js
 const defaultOptions = {
   httpOnly: true,
   // secure: true, //with this option, you will not see it in Postman. Keep this in mind.
   maxAge: 1209600000,
   sameSite: "lax"
 };
+```
 
 Example Code:
-
 Create an object to store cookie options:
 const cookieOptions = {
   secure: true,
@@ -32,7 +68,7 @@ const cookieOptions = {
   domain: 'hopliteJS.com',
   path: '/hopliteJS'
 }
-
+Example Code:
 Create an object to store cookie name and value:
 const cookies = {
   cookieName1: 'cookie value 1',
@@ -43,16 +79,15 @@ const cookies = {
 Invoke createRulesetCookie with cookie object and optional cookie option object
 const cookieRuleset = hoplite.createRulesetCookie(cookies [, cookieOptions])
 
-COOKIE-JWTs
+## Individual Ruleset: Cookie-JWTs
 The developer is able to add custom JWTs to cookies by first utilizing the createRulesetCookieJWT method. This method can be used alongside any other ruleset-creating methods in hopLiteJS (eg. createRulesetCookie). 
-The parameter of this method is cookieJWTObject. The developer is required to first create the data for this parameters. Each key-value pair in the cookies object are individual cookies where
-the keys are cookie names and values are JWT objects. The key-value pairs in the JWT objects are secret, payload and the optional cookie options object consisting of optional security measures such as domain, encode, etc. (shown below). If the option parameter is not inputted, default options will be applied.
+The parameter of this method is cookieJWTObject. The developer is required to first create the data for this parameters. Each key-value pair in the cookies object are individual cookies where the keys are cookie names and values are JWT objects. The key-value pairs in the JWT objects are secret, payload and the optional cookie options object consisting of optional security measures such as domain, encode, etc. (shown below). If the cookie options parameter is not inputted, default options will be applied, shown below. A developer can set as many cookieJWTs as they want within the cookieJWTObject.
 
 OPTIONS:
 
 domain (string), encode (function), expires (date), maxAge (number), httponly (boolean), path (string), secure (boolean), signed (boolean), sameSite (boolean or string)
 
-Default Options:
+Default Cookie Option:
 const defaultOptions = {
   httpOnly: true,
   // secure: true, //with this option, you will not see it in Postman. Keep this in mind.
@@ -82,39 +117,42 @@ const cookieOptions = {
 }
 
 Create a JWT:
-const JWT = {
+First Create a JWT object
+const jwtObj = {
   secret: mySecret,
   payload: myPayload,
   options: cookieOptions
 }
 
 Create a cookie-JWT object:
-const cookieJWTObj = {
-  token1 = JWT
+const cookieJWTObject = {
+  token1 = jwtObj
 }
 
-Invoke createRuleset method with cookieJWTObj as an argument:
+Invoke createRuleset method with cookieJWTObject as an argument:
 const cookieJWTRuleset = hoplite.createRulesetCookieJWT(cookieJWTObject)
 
-USING GLOBAL RULESET:
+##GLOBAL RULESET:
 
-After the developer decides which security methods (eg. cookie, cookieJWT, etc.) to use, they must invoke the createRuleset method with each of these creation methods as arguments. The first argument must be a message which will be used as the res.send at the end of the middleware.
+After the developer has decided which security methods (eg. cookie, cookieJWT, etc.) to use, they must invoke the createRuleset method with each of these creation methods as arguments. The first argument must be a message which will be used as the res.send at the end of the middleware.
 
-Example Code:
 
-createRuleset with parameters:
-hoplite.createRuleset(message, ...args)
+Usage : 
+hoplite.createRuleset(message, [, cookieRuleset], [,  cookieJWTRuleset])
 
+Example Code
 Create a message which will be used as the res.send:
 const message = 'Cookie and Cookie-JWTs have been set successfully'
-
+Example Code: 
 Invoke createRuleset with appropriate arguments:
 const ruleset = hoplite.createRuleset(message, cookieRuleset, cookieJWTRuleset)
 
 
 
-AUTHENTICATION:
-After creating the global ruleset, the developer is able to authenticate their clients by invoking the authentication helper method. The parameters are global ruleset and res which will allow the middleware chain to continue.
+## AUTHENTICATION:
+After creating the global ruleset, the developer is able to authenticate their clients by invoking the authentication helper method. The parameters are global ruleset and res which will allow the middleware chain to continue. The function will automatically iterate through the ruleset and apply all of the individual rulesets inputs.
+
+
 
 Example Code:
 
@@ -122,12 +160,15 @@ app.post('/authn', async (req, res) => {
   const result = await authenticate(ruleset, res); 
 })
 
-AUTHORIZATION:
-After creating the global ruleset and authenticating, the developer is able to authorize their clients by invoking the authorization middleware method. The only parameter is the global ruleset.
+## AUTHORIZATION:
+After creating the global ruleset and authenticating, the developer is able to authorize their clients by invoking the authorization middleware method. The only parameter is the global ruleset. The function will automatically iterate through the ruleset and apply all of the individual rulesets inputs. On routes the developer can change the ruleset to allow or disallow certain users with cookies and/or cookieJWTs, this can be achieved by changing the globalruleset within the argument of the authorization middleware. If a user does not have authorization to access a route, the response will be sent with a status code of 403 and the message "You do not have access to this resource."
 
 Example Code:
 app.post('/authz', authorize(myRuleset), (req, res) => {
   res.status(200).send("Authorization Successful");
+})
+app.post('/authNotAllowed', authorize(myRuleset), (req, res) => {
+  res.status(403).send("You do not have access to this resource.");
 })
 
 HASHING:
