@@ -1,4 +1,187 @@
-# hoplitejs
+Welcome to **hopLiteJS**!
+hopLiteJS is a developer friendly lightweight middleware library for Node.js. hopLiteJS can be imported and used in any Express-based web application. 
+It has multiple developer interfaces for customizing authentication and authorization. With hopLiteJS, developers no longer have to dread authentication, authorization and hashing. 
+
+
+COOKIES
+The developer is able to add custom cookies by first utilizing the createRulesetCookie method. This method can be used alongside any other ruleset-creating methods in hopLiteJS (eg. createRulesetCookieJWT). 
+The parameters of the method are cookies (object) and optional cookieOptions (object). The developer is required to first create the data for these parameters. Each key-value pair in the cookies object are individual cookies where
+the keys are cookie names and values are cookie data. Each key-value pair in the optional cookie options object consists optional security measures such as domain, encode, etc. (shown below). If the option parameter is not inputted, default options will be applied.
+
+Cookie:
+
+Options:
+domain (string), encode (function), expires (date), maxAge (number), httponly (boolean), path (string), secure (boolean), signed (boolean), sameSite (boolean or string)
+
+Default Options:
+const defaultOptions = {
+  httpOnly: true,
+  // secure: true, //with this option, you will not see it in Postman. Keep this in mind.
+  maxAge: 1209600000,
+  sameSite: "lax"
+};
+
+Example Code:
+
+Create an object to store cookie options:
+const cookieOptions = {
+  secure: true,
+  httponly: true,
+  signed: true,
+  expires: new Date(Date.now() + 900000),
+  domain: 'hopliteJS.com',
+  path: '/hopliteJS'
+}
+
+Create an object to store cookie name and value:
+const cookies = {
+  cookieName1: 'cookie value 1',
+  cookieName2: 'cookie value 2',
+  foo: 'bar'
+}
+
+Invoke createRulesetCookie with cookie object and optional cookie option object
+const cookieRuleset = hoplite.createRulesetCookie(cookies [, cookieOptions])
+
+COOKIE-JWTs
+The developer is able to add custom JWTs to cookies by first utilizing the createRulesetCookieJWT method. This method can be used alongside any other ruleset-creating methods in hopLiteJS (eg. createRulesetCookie). 
+The parameter of this method is cookieJWTObject. The developer is required to first create the data for this parameters. Each key-value pair in the cookies object are individual cookies where
+the keys are cookie names and values are JWT objects. The key-value pairs in the JWT objects are secret, payload and the optional cookie options object consisting of optional security measures such as domain, encode, etc. (shown below). If the option parameter is not inputted, default options will be applied.
+
+OPTIONS:
+
+domain (string), encode (function), expires (date), maxAge (number), httponly (boolean), path (string), secure (boolean), signed (boolean), sameSite (boolean or string)
+
+Default Options:
+const defaultOptions = {
+  httpOnly: true,
+  // secure: true, //with this option, you will not see it in Postman. Keep this in mind.
+  maxAge: 1209600000,
+  sameSite: "lax"
+};
+
+Example Code:
+
+Create a secret string:
+constant mySecret = 'password123';
+
+Create a payload object
+const myPayload = {
+  id: h3bv3h3hg3g,
+  privilege: 'L2'
+}
+
+Create an optional options object:
+const cookieOptions = {
+  secure: true,
+  httponly: true,
+  signed: true,
+  expires: new Date(Date.now() + 400000),
+  domain: 'hopliteIsAwesome.com',
+  path: '/hopliteAwesome'
+}
+
+Create a JWT:
+const JWT = {
+  secret: mySecret,
+  payload: myPayload,
+  options: cookieOptions
+}
+
+Create a cookie-JWT object:
+const cookieJWTObj = {
+  token1 = JWT
+}
+
+Invoke createRuleset method with cookieJWTObj as an argument:
+const cookieJWTRuleset = hoplite.createRulesetCookieJWT(cookieJWTObject)
+
+USING GLOBAL RULESET:
+
+After the developer decides which security methods (eg. cookie, cookieJWT, etc.) to use, they must invoke the createRuleset method with each of these creation methods as arguments. The first argument must be a message which will be used as the res.send at the end of the middleware.
+
+Example Code:
+
+createRuleset with parameters:
+hoplite.createRuleset(message, ...args)
+
+Create a message which will be used as the res.send:
+const message = 'Cookie and Cookie-JWTs have been set successfully'
+
+Invoke createRuleset with appropriate arguments:
+const ruleset = hoplite.createRuleset(message, cookieRuleset, cookieJWTRuleset)
+
+
+
+AUTHENTICATION:
+After creating the global ruleset, the developer is able to authenticate their clients by invoking the authentication helper method. The parameters are global ruleset and res which will allow the middleware chain to continue.
+
+Example Code:
+
+app.post('/authn', async (req, res) => {
+  const result = await authenticate(ruleset, res); 
+})
+
+AUTHORIZATION:
+After creating the global ruleset and authenticating, the developer is able to authorize their clients by invoking the authorization middleware method. The only parameter is the global ruleset.
+
+Example Code:
+app.post('/authz', authorize(myRuleset), (req, res) => {
+  res.status(200).send("Authorization Successful");
+})
+
+HASHING:
+
+A. Hashing using bcrypt
+The developer is required to provide inputPassword (string) and cost (number) as parameters. The inputPassword refers to the password input by the client and cost refers to the number of salt rounds in bcrypt. By default the cost is set to 10 rounds. The output of this function is a hashed string.
+
+Example Code:
+
+const inputPassword = 'password123';
+const cost = 10;
+
+const hashedPassword = hoplite.bcryptHash(inputPassword, cost);
+console.log(hashedPassword) //prints hashed string
+
+
+B. Comparing input password with hashed string using bcrypt
+The developer is required to provide inputPassword (string) and hashedPassword (string) as parameters. The inputPassword refers to the password input by the client and hashedPassword refers to the hashed password that is stored. A developer can store the hashed password in a database and query for it using the id that is associated with it. The output of this function is a boolean.
+
+Example Code:
+const inputPassword = 'password123';
+const hashedPassword = 'Hashed Database Password';
+
+const samePassword = hoplite.bcryptCompare(inputPassword, hashedPassword);
+console.log(samePassword) //prints true or false
+
+
+C. Hashing using argon2
+The developer is required to provide inputPassword (string) as a parameter. The inputPassword refers to the password input by the client. The output of this function is a hashed string.
+
+Example Code:
+const inputPassword = 'password123';
+const hashedPassword = hoplite.argonHash(inputPassword);
+console.log(hashedPassword) //prints hashed string
+
+D. Comparing input password with hashed string using argon2
+The developer is required to provide inputPassword (string) and hashedPassword (string) as parameters. The inputPassword refers to the password input by the client and hashedPassword refers to the hashed password that is stored. A developer can store the hashed password in a database and query for it using the id that is associated with it. The output of this function is a boolean.
+
+Example Code:
+const inputPassword = 'qwerty123';
+const hashedPassword = 'Hashed Database Password';
+
+const samePassword  = hoplite.argonCompare(inputPassword, hashedPassword);
+console.log(samePassword) //prints true or false
+
+CURRENTLY DEVELOPING:
+-oAuth
+-user privilege
+
+
+
+
+
+<!-- # hoplitejs
 ![hopLiteJS](https://i.ibb.co/sPj9Zdp/hoplite.png)
 - [hopLiteJS](#hopLiteJS)
   - [Introduction](#introduction)
@@ -40,6 +223,33 @@ In the terminal type the following line :
 ```
 npm install hopLiteJS
 ```
+
+## UsageNew
+1. Import hopLiteJS using the following code : 
+```js
+ import HopliteSchemas from 'hopLiteJS';
+```
+2. Import DefaultHopLite :
+Inside the file type - 
+```js
+const { DefaultHoplite } = require('hopLiteJS');
+```
+3. Import Authenticate and Authorize :
+Inside the file type - 
+```js
+const { authenticate, authorize } = DefaultHoplite;
+```
+4. Import HopLiteSchemas : 
+Inside the file type - 
+```js
+const { HopliteSchemas } = require('hopLiteJS');
+```
+5. Import Rulesets :
+Inside the file type - 
+```js
+const { createRuleset, createRulesetCookieJWT, createRulesetCookie } = HopliteSchemas;
+```
+
 
 
 
@@ -183,4 +393,4 @@ Four Steps to protecting your assets!
     2. Returns a **boolean**;
   4.[compareArgon2](#compareArgon2)
     1. Takes *inputString* and *hashedString* as arguments.
-    2. Returns a **boolean**;
+    2. Returns a **boolean**; -->

@@ -31,7 +31,7 @@ function authenticate(ruleset: HopLiteRuleset, res: any) {
       userOptions[cookieName] = ruleset.cookieJWT[cookieName].options;
     }
 
-    
+  
       for (let cookieName in jwtList) {
         const clientSecret = ruleset.cookieJWT[cookieName].secret;
         const token = jwt.sign(jwtList[cookieName], clientSecret);
