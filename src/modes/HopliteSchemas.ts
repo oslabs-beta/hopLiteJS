@@ -1,6 +1,9 @@
 import { Cookies, CookieOptions, JWTConfig, MessageJSON, HopLiteRuleset } from "../types";
 import { } from "../types";
+import { RulesetBlueprint } from "./RulesetSchema";
 class HopliteSchemasBlueprint {
+
+ 
   createRuleset(message: string | MessageJSON, ...args: [string, number][]): HopLiteRuleset {
     const ruleset: any = {};
     for (let i = 0; i < args.length; i++) {
@@ -9,6 +12,7 @@ class HopliteSchemasBlueprint {
     ruleset.message = message;
     return ruleset;
   }
+
   createRulesetCookieJWT(cookieJWTObj: JWTConfig) { //...args: any
     const ruleset: any = {};
     console.log(cookieJWTObj)
@@ -25,6 +29,9 @@ class HopliteSchemasBlueprint {
     ruleset['cookies'] = cookies;
     return ['cookie', ruleset];
   }
+
+ 
+
   // createRulesetJWT(JWTObj: JWTConfig) {
   //   const ruleset: any = {};
   //   for (let key in JWTObj) {
