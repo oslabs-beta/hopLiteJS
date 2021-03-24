@@ -1,6 +1,6 @@
 import { HopLiteRuleset } from "../types";
 const jwt = require('jsonwebtoken');
-{cookieName:{secret:payload}}
+
 function authenticate(ruleset: HopLiteRuleset, res: any) {
   const defaultOptions = {
     httpOnly: true,
