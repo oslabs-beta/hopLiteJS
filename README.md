@@ -1,27 +1,25 @@
-# hoplitejs
+# Welcome to **hopLiteJS**!
 
-  ##### Table of Contents 
-- [Welcome to **hopLiteJS**!](#welcome-to---hoplitejs---)
+![hopLiteJS](./src/images/hoplitejs.png)
+
+hopLiteJS was created in 2021 with the vision to be a developer friendly lightweight middleware library for Node.js. hopLiteJS can be imported and used in any Express-based web application. It has multiple developer interfaces for customizing authentication and authorization. With hopLiteJS, developers no longer have to dread authentication, authorization and hashing. 
+
+In ancient history, the hoplites were some of the fiercest warriors that the world had ever seen. They proved their impeccable reputation by fighting in the harshest of battles, even when they were greatly outnumbered. At the heart of their fortitude was their mission to protect what they deemed to be important. Today as developers, we often find ourselves also outnumbered in a battle for cybersecurity with online hackers. As such, we at hopeLiteJS find our mission to protect our users, as their security is what is important to us.
+
+
+
+  ## Table of Contents 
+  * [Welcome to **hopLiteJS**!](#welcome-to-hoplitejs-)
   * [Installation Guide](#installation-guide)
   * [Getting Started](#getting-started)
   * [Data Flow](#data-flow)
-  * [INDIVIDUAL RULESET- COOKIES](#individual-ruleset--cookies)
-  * [Cookie:](#cookie-)
-  * [Individual Ruleset - Cookie-JWTs](#individual-ruleset---cookie-jwts)
-    + [OPTIONS:](#options-)
-      - [Default Cookie Option:](#default-cookie-option-)
-  * [GLOBAL RULESET:](#global-ruleset-)
-  * [AUTHENTICATION:](#authentication-)
-  * [AUTHORIZATION:](#authorization-)
-    + [HASHING:](#hashing-)
-
-
-# Welcome to **hopLiteJS**!
-hopLiteJS was created in 2021 with the vision to be a developer friendly lightweight middleware library for Node.js. hopLiteJS can be imported and used in any Express-based web application. It has multiple developer interfaces for customizing authentication and authorization. With hopLiteJS, developers no longer have to dread authentication, authorization and hashing. 
-
-In ancient history, the hoplites were some of the fiercest warriors. They showed fortitude and resilience when outnumbered because their mission was to protect what was important to them. Today as developers we often find ourselves outnumbered by online hackers. However, we at hopeLiteJS is here to help protect you, as you are important to us.
-
-
+  * [Individual Ruleset: Cookies](#individual-ruleset--cookies)
+  * [Cookie](#cookie-)
+  * [Individual Ruleset: Cookie-JWTs](#individual-ruleset---cookie-jwts)
+  * [Global ruleset](#global-ruleset-)
+  * [Authentication](#authentication-)
+  * [Authorization](#authorization-)
+  * [Hashing](#hashing-)
 
 ## Installation Guide
 In the terminal type the following command :
@@ -31,43 +29,40 @@ npm install hopLiteJS
 
 ## Getting Started
 
-1. Import hopLiteJS using the following code : 
-```js
- import HopliteSchemas from 'hopLiteJS';
-```
-2. Import DefaultHopLite :
-Inside the file type - 
-```js
-const { DefaultHoplite } = require('hopLiteJS');
-```
-3. Import Authenticate and Authorize :
-Inside the file type - 
-```js
-const { authenticate, authorize } = DefaultHoplite;
-```
-4. Import HopLiteSchemas : 
-Inside the file type - 
-```js
-const { HopliteSchemas } = require('hopLiteJS');
-```
-5. Import Rulesets :
-Inside the file type - 
-```js
-const { createRuleset, createRulesetCookieJWT, createRulesetCookie } = HopliteSchemas;
-```
-## Data Flow
-![hopLite Data Flow](https://ibb.co/L6WYhCg)
+1. Import DefaultHopLite using the following code
+2. Import Authenticate and Authorize
+3. Import HopLiteSchemas
+4. Import Rulesets
 
-## INDIVIDUAL RULESET- COOKIES
+```js
+const { DefaultHoplite }  = require('hoplitejs');
+const { authenticate, authorize} = DefaultHoplite;
+const { HopliteSchemas } = require('hoplitejs');
+const {createUser, createRulesetCookie, createRuleset,createRulesetCookieJWT} = HopliteSchemas;
+const { pwArgon2, hashed, compareArgon2, compared } = HashMethods;
+```
+
+## Data Flow
+
+To utilize hopLiteJS, the developer will need to use the Individual Ruleset, Global Ruleset, Authentication and then Authorization. If the developer wishes to use hopLiteJS's bcrypt and argon2 methods, those methods are available as well, although they are not a part of the data flow.
+
+![dataFlow](./src/images/dataflow.png)
+
+## Individual Ruleset: Cookies
+
+Usage:
+```js
+const cookieRuleset = hoplite.createRulesetCookie(cookies [, cookieOptions]);
+```
 
 The developer is able to add custom cookies by first utilizing the createRulesetCookie method in order to create a cookieRuleset. This method can be used alongside any other ruleset-creating methods in hopLiteJS (eg. createRulesetCookieJWT).
 
-The parameters of the method are cookies (object) and optional cookieOptions (object). The developer is required to first create the data for these parameters. Each key-value pair in the cookies object are individual cookies where the keys are cookie names and values are cookie data. Each key-value pair in the cookie options object consists of security measures to choose from such as domain, encode, etc. (shown below). If the option parameter is not inputted, default options will be applied, the cookie options object itself is also optional. If there is no cookie option argument set by the developer the cookie option argument will be changed into defaultOptions shown below.
+The parameters of the method are cookies (object) and cookieOptions (object) which is optional. The developer is required to first create the data for these parameters. Each key-value pair in the cookies object are individual cookies where the keys are cookie names and values are cookie data. Each key-value pair in the cookie options object consists of security measures to choose from such as domain, encode, etc. (shown below). If there is no cookie option argument set by the developer the cookie option argument will be changed into defaultOptions shown below. The developer is able to input as many cookies as they want.
 
-## Cookie:
-![Cookie Options](https://ibb.co/9h0Gtyv)
 
-Default Cookie Option:
+![cookieOptions](./src/images/cookieOptions.png)
+
+### Default Cookie Option:
 ```js
 const defaultOptions = {
   httpOnly: true,
@@ -77,7 +72,7 @@ const defaultOptions = {
 };
 ```
 
-Example Code:
+### Example Code:
 Create an object to store cookie options:
 ```js
 const cookieOptions = {
@@ -87,32 +82,34 @@ const cookieOptions = {
   expires: new Date(Date.now() + 900000),
   domain: 'hopliteJS.com',
   path: '/hopliteJS'
-}
+};
 ```
-Example Code:
+### Example Code:
 Create an object to store cookie name and value:
 ```js
 const cookies = {
   cookieName1: 'cookie value 1',
   cookieName2: 'cookie value 2',
   foo: 'bar'
-}
+};
 ```
 
 Invoke createRulesetCookie with cookie object and optional cookie option object:
 ```js
-const cookieRuleset = hoplite.createRulesetCookie(cookies [, cookieOptions])
+const cookieRuleset = createRulesetCookie(cookies, cookieOptions)
 ```
 
-## Individual Ruleset - Cookie-JWTs
+## Individual Ruleset: Cookie-JWTs
+
+Usage:
+```js
+const cookieJWTRuleset = createRulesetCookieJWT(cookieJWTObject)
+```
 The developer is able to add custom JWTs to cookies by first utilizing the createRulesetCookieJWT method. This method can be used alongside any other ruleset-creating methods in hopLiteJS (eg. createRulesetCookie). 
 The parameter of this method is cookieJWTObject. The developer is required to first create the data for this parameters. Each key-value pair in the cookies object are individual cookies where the keys are cookie names and values are JWT objects. The key-value pairs in the JWT objects are secret, payload and the optional cookie options object consisting of optional security measures such as domain, encode, etc. (shown below). If the cookie options parameter is not inputted, default options will be applied, shown below. A developer can set as many cookieJWTs as they want within the cookieJWTObject.
 
-### OPTIONS:
 
-domain (string), encode (function), expires (date), maxAge (number), httponly (boolean), path (string), secure (boolean), signed (boolean), sameSite (boolean or string)
-
-#### Default Cookie Option:
+### Default Cookie Option:
 ```js
 const defaultOptions = {
   httpOnly: true,
@@ -122,11 +119,11 @@ const defaultOptions = {
 };
 ```
 
-Example Code:
+### Example Code:
 
 Create a secret string:
 ```js
-constant mySecret = 'password123';
+const mySecret = 'password123';
 ```
 
 Create a payload object
@@ -156,119 +153,115 @@ const jwtObj = {
   secret: mySecret,
   payload: myPayload,
   options: cookieOptions
-}
+};
 ```
 Create a cookie-JWT object:
 ```js
 const cookieJWTObject = {
-  token1 = jwtObj
-}
+  token1: jwtObj
+};
 ```
 
 Invoke createRuleset method with cookieJWTObject as an argument:
 ```js
-const cookieJWTRuleset = hoplite.createRulesetCookieJWT(cookieJWTObject)
+const cookieJWTRuleset = hoplite.createRulesetCookieJWT(cookieJWTObject);
 ```
 
-## GLOBAL RULESET:
+## Global Ruleset:
 
 After the developer has decided which security methods (eg. cookie, cookieJWT, etc.) to use, they must invoke the createRuleset method with each of these creation methods as arguments. The first argument must be a message which will be used as the res.send at the end of the middleware.
 
-
 Usage : 
 ```js
-hoplite.createRuleset(message, [, cookieRuleset], [,  cookieJWTRuleset])
+createRuleset(message, [, cookieRuleset], [, cookieJWTRuleset]);
 ```
 
-Example Code
+### Example Code
 Create a message which will be used as the res.send message:
 ```js
 const message = 'Cookie and Cookie-JWTs have been set successfully'
 ```
-Example Code: 
 Invoke createRuleset with appropriate arguments:
 ```js
-const ruleset = hoplite.createRuleset(message, cookieRuleset, cookieJWTRuleset)
+const ruleset = createRuleset(message, cookieRuleset, cookieJWTRuleset);
 ```
 
 
-## AUTHENTICATION:
-After creating the global ruleset, the developer is able to authenticate their clients by invoking the authentication helper method. The parameters are global ruleset and res which will allow the middleware chain to continue. The function will automatically iterate through the ruleset and apply all of the individual rulesets inputs.
+## Authentication:
+After creating the global ruleset, the developer is able to authenticate their clients by invoking the authentication helper method. The parameters are global ruleset and res which allows the middleware chain to continue. The function will automatically iterate through the ruleset and apply all of the individual ruleset inputs.
 
 
 
-Example Code:
+### Example Code:
 ```js
 app.post('/authn', async (req, res) => {
   const result = await authenticate(ruleset, res); 
 })
 ```
 
-## AUTHORIZATION:
+## Authorization:
 After creating the global ruleset and authenticating, the developer is able to authorize their clients by invoking the authorization middleware method. The only parameter is the global ruleset. The function will automatically iterate through the ruleset and apply all of the individual rulesets inputs. On routes the developer can change the ruleset to allow or disallow certain users with cookies and/or cookieJWTs, this can be achieved by changing the globalruleset within the argument of the authorization middleware. If a user does not have authorization to access a route, the response will be sent with a status code of 403 and the message "You do not have access to this resource."
 
-Ted authenticates = ruleset1
-
-Ruleset1 = allow only Ted
-Ruleset2 =  only allow Reuben
-Example Code:
+### Example Code:
 ```js
-app.post('/secretPageTED', authorize(myRuleset1), (req, res) => {
+app.post('/secretPage', authorize(myRuleset1), (req, res) => {
   res.status(200).send("Authorization Successful");
-  res.render(something with session id)
 });
-app.post('/secretPageTED', authorize(myRuleset2)) //==> next(err); console.log(err); res.status(403).send("You do not have access to this resource.");
+
+app.post('/secretPage', authorize(myRuleset2), (req,res) => {
+  res.status(403).send("You do not have access to this resource.");
+});
 ```
 
-### HASHING:
+## Hashing:
 
-A. Hashing using bcrypt
-The developer is required to provide inputPassword (string) and cost (number) as parameters. The inputPassword refers to the password input by the client and cost refers to the number of salt rounds in bcrypt. By default the cost is set to 10 rounds. The output of this function is a hashed string.
+### A. Hashing using bcrypt
 
-Example Code:
 ```js
-const inputPassword = 'password123';
+const myPassword = 'password123';
 const cost = 10;
 
-const hashedPassword = hoplite.bcryptHash(inputPassword, cost);
-console.log(hashedPassword) //prints hashed string
+const hashedPassword = hoplite.bcryptHash(myPassword, cost = 10);
+console.log(hashedPassword); //prints hashed string
 ```
 
-B. Comparing input password with hashed string using bcrypt
-The developer is required to provide inputPassword (string) and hashedPassword (string) as parameters. The inputPassword refers to the password input by the client and hashedPassword refers to the hashed password that is stored. A developer can store the hashed password in a database and query for it using the id that is associated with it. The output of this function is a boolean.
+The developer is required to provide inputPassword (string) and cost (number) as parameters. The inputPassword refers to the password input by the client and cost refers to the number of salt rounds in bcrypt. By default the cost is set to 10 rounds. The output of this function is a hashed string.
+
+### B. Comparing input password with hashed string using bcrypt
+
 ```js
-Example Code:
 const inputPassword = 'password123';
 const hashedPassword = 'Hashed Database Password';
 
 const samePassword = hoplite.bcryptCompare(inputPassword, hashedPassword);
-console.log(samePassword) //prints true or false
+console.log(samePassword); //prints true or false
 ```
 
-C. Hashing using argon2
-The developer is required to provide inputPassword (string) as a parameter. The inputPassword refers to the password input by the client. The output of this function is a hashed string.
+The developer is required to provide inputPassword (string) and hashedPassword (string) as parameters. The inputPassword refers to the password input by the client and hashedPassword refers to the hashed password that is stored. A developer can store the hashed password in a database and query for it using the id that is associated with it. The output of this function is a boolean.
 
-Example Code:
+### C. Hashing using argon2
+
 ```js
 const inputPassword = 'password123';
 const hashedPassword = hoplite.argonHash(inputPassword);
-console.log(hashedPassword) //prints hashed string
+console.log(hashedPassword); //prints hashed string
 ```
 
-D. Comparing input password with hashed string using argon2
-The developer is required to provide inputPassword (string) and hashedPassword (string) as parameters. The inputPassword refers to the password input by the client and hashedPassword refers to the hashed password that is stored. A developer can store the hashed password in a database and query for it using the id that is associated with it. The output of this function is a boolean.
+The developer is required to provide inputPassword (string) as a parameter. The inputPassword refers to the password input by the client. The output of this function is a hashed string.
 
-Example Code:
+### D. Comparing input password with hashed string using argon2
+
 ```js
 const inputPassword = 'qwerty123';
 const hashedPassword = 'Hashed Database Password';
 
 const samePassword  = hoplite.argonCompare(inputPassword, hashedPassword);
-console.log(samePassword) //prints true or false
+console.log(samePassword); //prints true or false
 ```
-CURRENTLY DEVELOPING:
--oAuth
--user privilege
+
+The developer is required to provide inputPassword (string) and hashedPassword (string) as parameters. The inputPassword refers to the password input by the client and hashedPassword refers to the hashed password that is stored. A developer can store the hashed password in a database and query for it using the id that is associated with it. The output of this function is a boolean.
+
+
 
 
 
