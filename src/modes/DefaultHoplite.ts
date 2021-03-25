@@ -12,4 +12,4 @@ class DefaultHopliteBlueprint {
   }
 }
 
-export default DefaultHopliteBlueprint; 
+export default DefaultHopliteBlueprint;
