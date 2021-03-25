@@ -17,6 +17,7 @@ function authorize(ruleset: HopLiteRuleset) {
         } catch (err) {
           console.log(err);
           res.status(403).send("You do not have access to this resource.");
+          next(err);
         }
       }
       next();
@@ -26,6 +27,7 @@ function authorize(ruleset: HopLiteRuleset) {
         if (cookies[cookieName] !== cookieList[cookieName]) {
           console.log("Failed.");
           return res.status(403).send("You do not have access to this resource.");
+          
         }
       }
       console.log("Succeeded");

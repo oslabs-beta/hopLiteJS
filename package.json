@@ -9,9 +9,9 @@
     "authorize",
     "cookie",
     "JWT",
-    "encryption",
     "authn",
-    "authz"
+    "authz",
+    "hashing"
   ],
   "scripts": {
     "build": "tsc",
