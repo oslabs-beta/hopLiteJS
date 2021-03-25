@@ -3,12 +3,15 @@ import { AuthorizationHelperMethodsBlueprint } from './AuthorizationHelperMethod
 import * as jwt from 'jsonwebtoken';
 import { HopLiteRuleset } from "../types";
 
-
+//create authorization method to iterate through individual creation methods and apply authorization
 function authorize(ruleset: HopLiteRuleset) {
   console.log("Authorize is firing.");
+  //use closure to give method access to req,res,next
   return function (req: any, res: any, next: any) {
     const cookies = req.cookies;
+    //conditional statement to check if ruleset.cookieJWT is in ruleset
     if (ruleset.cookieJWT) {
+      //iterate through each cookie to verify and authorize user
       for (let cookieName in ruleset.cookieJWT) {
         const existingCookieJWT = cookies[cookieName];
         const clientSecret = ruleset.cookieJWT[cookieName].secret;
@@ -21,6 +24,7 @@ function authorize(ruleset: HopLiteRuleset) {
         }
       }
       next();
+      //conditional statement to check if ruleset.cookies is in ruleset
     } else if (ruleset.cookie) {
       const cookieList = ruleset.cookie.cookies;
       for (let cookieName in cookieList) {

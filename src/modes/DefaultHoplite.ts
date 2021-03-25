@@ -1,4 +1,4 @@
-
+//file used to combine authz and authn controlelrs and to export them as one
 
 class DefaultHopliteBlueprint {
   authenticate: AuthenticationControllerInterface;

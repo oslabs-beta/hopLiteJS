@@ -1,5 +1,7 @@
 import { createSecretKey } from "node:crypto";
 
+//file to create interfaces
+
 interface HopLiteUser {
   username: string;
   password?: string;
@@ -40,8 +42,7 @@ interface Payload {
 interface JWTConfig {
   [key: string]: JWT;
 }
-// secret: string;
-// payloads: JWTPayloads;
+
 interface JWT {
   options?: CookieOptions
   secret: string;

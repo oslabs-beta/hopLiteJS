@@ -1,31 +1,20 @@
 # hoplitejs
 
-![hopLiteJS](https://i.ibb.co/sPj9Zdp/hoplite.png)
-- [hopLiteJS](#hopLiteJS)
-  - [Introduction](#introduction)
-    - [Development mode](#development-mode)
-    - [Production mode](#production-mode)
-  - [Quick Start](#quick-start)
-  - [Documentation](#documentation)
-    - [Folder Structure](#folder-structure)
-    - [Typescript](#Typescript)
-      -[ts-loader](#ts-loader)
-    - [ESLint](#eslint)
-      -[VSCode + ESLint + Prettier](#vscode--eslint--prettier)
-      -[eslint-config-airbnb](#eslint-config-airbnb)
-      -[eslint-plugin-import](#eslint-plugin-import)
-    - [Webpack](#webpack)
-      -[webpack-cli](#webpack-cli)
-      -[webpack-dev-server](#webpack-dev-server)
-    - [Nodemon](#nodemon)
-    - [@types](#@types)
-      -[@types/node](#@types/node)
-      -[@types/express](#@types/express)
-      -[@types/bcrypt](#@types/bcrypt)
-      -[@types/argon2](#@types/argon2)
-      -[@types/cookie-parser](#@types/cookie-parser)
-      -[@types/jsonwebtoken](#@types/jsonwebtoken)
-  - [Installation guide](#installation-guide)
+  ##### Table of Contents 
+- [Welcome to **hopLiteJS**!](#welcome-to---hoplitejs---)
+  * [Installation Guide](#installation-guide)
+  * [Getting Started](#getting-started)
+  * [Data Flow](#data-flow)
+  * [INDIVIDUAL RULESET- COOKIES](#individual-ruleset--cookies)
+  * [Cookie:](#cookie-)
+  * [Individual Ruleset - Cookie-JWTs](#individual-ruleset---cookie-jwts)
+    + [OPTIONS:](#options-)
+      - [Default Cookie Option:](#default-cookie-option-)
+  * [GLOBAL RULESET:](#global-ruleset-)
+  * [AUTHENTICATION:](#authentication-)
+  * [AUTHORIZATION:](#authorization-)
+    + [HASHING:](#hashing-)
+
 
 # Welcome to **hopLiteJS**!
 hopLiteJS was created in 2021 with the vision to be a developer friendly lightweight middleware library for Node.js. hopLiteJS can be imported and used in any Express-based web application. It has multiple developer interfaces for customizing authentication and authorization. With hopLiteJS, developers no longer have to dread authentication, authorization and hashing. 
@@ -69,7 +58,7 @@ const { createRuleset, createRulesetCookieJWT, createRulesetCookie } = HopliteSc
 ## Data Flow
 ![hopLite Data Flow](https://ibb.co/L6WYhCg)
 
-## INDIVIDUAL RULESET: COOKIES
+## INDIVIDUAL RULESET- COOKIES
 
 The developer is able to add custom cookies by first utilizing the createRulesetCookie method in order to create a cookieRuleset. This method can be used alongside any other ruleset-creating methods in hopLiteJS (eg. createRulesetCookieJWT).
 
@@ -115,7 +104,7 @@ Invoke createRulesetCookie with cookie object and optional cookie option object:
 const cookieRuleset = hoplite.createRulesetCookie(cookies [, cookieOptions])
 ```
 
-## Individual Ruleset: Cookie-JWTs
+## Individual Ruleset - Cookie-JWTs
 The developer is able to add custom JWTs to cookies by first utilizing the createRulesetCookieJWT method. This method can be used alongside any other ruleset-creating methods in hopLiteJS (eg. createRulesetCookie). 
 The parameter of this method is cookieJWTObject. The developer is required to first create the data for this parameters. Each key-value pair in the cookies object are individual cookies where the keys are cookie names and values are JWT objects. The key-value pairs in the JWT objects are secret, payload and the optional cookie options object consisting of optional security measures such as domain, encode, etc. (shown below). If the cookie options parameter is not inputted, default options will be applied, shown below. A developer can set as many cookieJWTs as they want within the cookieJWTObject.
 
