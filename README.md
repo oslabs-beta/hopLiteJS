@@ -29,13 +29,14 @@ npm install hopLiteJS
 
 ## Getting Started
 
-1. Import DefaultHopLite using the following code
+1. Import DefaultHopLite and HashMethods using the following code
 2. Import Authenticate and Authorize
 3. Import HopLiteSchemas
 4. Import Rulesets
+5. Import bcrypt and argon2
 
 ```js
-const { DefaultHoplite }  = require('hoplitejs');
+const { DefaultHoplite, HashMethods}  = require('hoplitejs');
 const { authenticate, authorize} = DefaultHoplite;
 const { HopliteSchemas } = require('hoplitejs');
 const {createUser, createRulesetCookie, createRuleset,createRulesetCookieJWT} = HopliteSchemas;
@@ -52,7 +53,7 @@ To utilize hopLiteJS, the developer will need to use the Individual Ruleset, Glo
 
 Usage:
 ```js
-const cookieRuleset = hoplite.createRulesetCookie(cookies [, cookieOptions]);
+const cookieRuleset = createRulesetCookie(cookies [, cookieOptions]);
 ```
 
 The developer is able to add custom cookies by first utilizing the createRulesetCookie method in order to create a cookieRuleset. This method can be used alongside any other ruleset-creating methods in hopLiteJS (eg. createRulesetCookieJWT).
@@ -129,7 +130,7 @@ const mySecret = 'password123';
 Create a payload object
 ```js
 const myPayload = {
-  id: h3bv3h3hg3g,
+  id: 'h3bv3h3hg3g',
   privilege: 'L2'
 }
 ```
@@ -155,7 +156,7 @@ const jwtObj = {
   options: cookieOptions
 };
 ```
-Create a cookie-JWT object:
+Create a cookie-JWT object and name the key value as the Cookie Name:
 ```js
 const cookieJWTObject = {
   token1: jwtObj
@@ -164,7 +165,7 @@ const cookieJWTObject = {
 
 Invoke createRuleset method with cookieJWTObject as an argument:
 ```js
-const cookieJWTRuleset = hoplite.createRulesetCookieJWT(cookieJWTObject);
+const cookieJWTRuleset = createRulesetCookieJWT(cookieJWTObject);
 ```
 
 ## Global Ruleset:
@@ -221,7 +222,7 @@ app.post('/secretPage', authorize(myRuleset2), (req,res) => {
 const myPassword = 'password123';
 const cost = 10;
 
-const hashedPassword = hoplite.bcryptHash(myPassword, cost = 10);
+const hashedPassword = bcryptHash(myPassword, cost = 10);
 console.log(hashedPassword); //prints hashed string
 ```
 
@@ -233,7 +234,7 @@ The developer is required to provide inputPassword (string) and cost (number) as
 const inputPassword = 'password123';
 const hashedPassword = 'Hashed Database Password';
 
-const samePassword = hoplite.bcryptCompare(inputPassword, hashedPassword);
+const samePassword = bcryptCompare(inputPassword, hashedPassword);
 console.log(samePassword); //prints true or false
 ```
 
@@ -243,7 +244,7 @@ The developer is required to provide inputPassword (string) and hashedPassword (
 
 ```js
 const inputPassword = 'password123';
-const hashedPassword = hoplite.argonHash(inputPassword);
+const hashedPassword = argonHash(inputPassword);
 console.log(hashedPassword); //prints hashed string
 ```
 
@@ -255,7 +256,7 @@ The developer is required to provide inputPassword (string) as a parameter. The 
 const inputPassword = 'qwerty123';
 const hashedPassword = 'Hashed Database Password';
 
-const samePassword  = hoplite.argonCompare(inputPassword, hashedPassword);
+const samePassword  = argonCompare(inputPassword, hashedPassword);
 console.log(samePassword); //prints true or false
 ```
 
