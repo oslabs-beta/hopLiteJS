@@ -1,3 +1,5 @@
+
+
 class DefaultHopliteBlueprint {
   authenticate: AuthenticationControllerInterface;
   authorize: AuthorizationControllerInterface;

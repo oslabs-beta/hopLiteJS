@@ -68,7 +68,6 @@ class Utilities {
   //   }
   // }
   static passwordDuration(duration: number) {
-
   }
 }
 

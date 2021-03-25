@@ -1,6 +1,7 @@
 import { Cookies, CookieOptions, JWTConfig, MessageJSON, HopLiteRuleset } from "../types";
-
 class HopliteSchemasBlueprint {
+
+ 
   createRuleset(message: string | MessageJSON, ...args: [string, number][]): HopLiteRuleset {
     const ruleset: any = {};
     for (let i = 0; i < args.length; i++) {

@@ -1,8 +1,24 @@
 {
   "name": "hoplitejs",
   "version": "1.0.0",
-  "description": "Fullstack Express with Typescript Enabled",
+  "description": "Easy to Implement Authorization and Authentication Library",
   "main": "lib/index.js",
+  "bin" : "lib/index.js",
+  "keywords": [
+    "authenticate",
+    "authorize",
+    "cookie",
+    "JWT",
+    "encryption",
+    "authn",
+    "authz",
+    "opaque token",
+    "encryption",
+    "hash",
+    "hashing",
+    "typescript",
+    "jest"
+  ],
   "scripts": {
     "build": "tsc",
     "check": "nodemon src/hopLiteJS/index.ts",
@@ -11,8 +27,16 @@
     "test:watch": "jest --watch",
     "test:coverage": "test --coverage"
   },
-  "author": "MXJRD",
-  "license": "ISC",
+  "repository": {
+    "type" : "git",
+    "url" : "git+https://github.com/oslabs-beta/hoplitejs"
+  },
+  "bugs": {
+    "url" : "https://github.com/oslabs-beta/hoplitejs/issues"
+  },
+  "homepage": "https://github.com/oslabs-beta/hoplitejs/blob/main/README.md",
+  "author": "OSLabs Beta",
+  "license": "MIT",
   "dependencies": {
     "argon2": "^0.27.1",
     "bcrypt": "^5.0.1",
