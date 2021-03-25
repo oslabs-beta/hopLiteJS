@@ -1,33 +1,63 @@
 import { AuthorizationHelperMethodsBlueprint } from './AuthorizationHelperMethods';
 import * as jwt from 'jsonwebtoken';
-import { HopLiteRuleset } from "../types";
+import { HopLiteRuleset, RequiredClaims, ClaimsList } from "../types";
+import { Request, Response, NextFunction } from 'express';
+import { Utilities } from '../utils/Utilities';
 
 
-function authorize(ruleset: HopLiteRuleset) {
+function authorize(ruleset: HopLiteRuleset, requiredClaims: RequiredClaims) {
   console.log("Authorize is firing.");
-  return function (req: any, res: any, next: any) {
+  return function (req: Request, res: Response, next: NextFunction) {
     const cookies = req.cookies;
     if (ruleset.cookieJWT) {
-      for (let cookieName in ruleset.cookieJWT) {
-        const existingCookieJWT = cookies[cookieName];
-        const clientSecret = ruleset.cookieJWT[cookieName].secret;
-        try {
-          jwt.verify(existingCookieJWT, clientSecret);
-        } catch (err) {
-          console.log(err);
-          res.status(403).send("You do not have access to this resource.");
+      try {
+        const claimsList = Object.keys(requiredClaims);
+        const myClaims: ClaimsList = {};
+        claimsList.forEach(elem => {
+          myClaims[elem] = false;
+        })
+        for (let cookieName in ruleset.cookieJWT) {
+          const existingCookieJWT = cookies[cookieName];
+          const clientSecret = ruleset.cookieJWT[cookieName].secret;
+          for (let key in requiredClaims) {
+            const myPayload = jwt.verify(existingCookieJWT, clientSecret) as any;
+            if (requiredClaims[key] === myPayload[key]) {
+              myClaims[key] = true;
+            }
+          }
         }
+        if (Object.values(myClaims).includes(false)) {
+          
+          throw new Error(`Required Claims missing. myClaims: ${JSON.stringify(myClaims)}`);
+        }
+      } catch (err) {
+        console.log(err);
+        return res.status(403).send("You do not have access to this resource.")
       }
       next();
     } else if (ruleset.cookie) {
-      const cookieList = ruleset.cookie.cookies;
-      for (let cookieName in cookieList) {
-        if (cookies[cookieName] !== cookieList[cookieName]) {
-          console.log("Failed.");
-          return res.status(403).send("You do not have access to this resource.");
+      try {
+        const claimsList = Object.keys(requiredClaims);
+        const myClaims: ClaimsList = {};
+        claimsList.forEach(elem => {
+          myClaims[elem] = false;
+        })
+        for (let cookieName in ruleset.cookie.cookies) {
+          const existingCookie = cookies[cookieName];
+          const myPayload = Utilities.opaqueTokenVerify(ruleset, existingCookie);
+          for (let key in requiredClaims) {
+            if (requiredClaims[key] === myPayload[key]) {
+              myClaims[key] = true;
+            }
+          }
         }
+        if (Object.values(myClaims).includes(false)) {
+          throw new Error(`Required Claims missing. myClaims: ${JSON.stringify(myClaims)}`);
+        }
+      } catch (err) {
+        console.log(err);
+        return res.status(403).send("You do not have access to this resource.")
       }
-      console.log("Succeeded");
       next();
     }
     else if (ruleset.JWT) {

@@ -1,10 +1,10 @@
-import { response } from "express";
-import { isJSDocUnknownTag } from "typescript";
+import { Response } from "express";
+
 const jwt = require('jsonwebtoken');
 const err = new Error('Incorrect ownership or insufficient permissions');
 
 class AuthorizationHelperMethodsBlueprint {
-  static hasRole(req: any, res: any, next: any) {
+  static hasRole(req: any, res: Response, next: any) {
     console.log("HasRole is firing.");
     const cookies = req.cookies;
       if(cookies.role === 'Admin'){

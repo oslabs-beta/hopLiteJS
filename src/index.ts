@@ -5,6 +5,7 @@ import { HopliteSchemasBlueprint } from './modes/HopliteSchemas';
 
 const DefaultHoplite = new DefaultHopliteBlueprint(authenticate, authorize);
 const HopliteSchemas = new HopliteSchemasBlueprint();
+
 export {
   DefaultHoplite,
   HopliteSchemas,
